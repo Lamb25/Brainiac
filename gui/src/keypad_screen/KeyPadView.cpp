@@ -207,8 +207,10 @@ void KeyPadView::btnEnterClicked()
 {
     if (KeyPadStatus::enterID == keyPadCurrentStatus) //from ID to PIN
     {
-        //Save ID to analize if its a valid one
+        //Save ID to analize if it's a valid one
         presenter->saveID(id_pin[keyPadCurrentStatus]);
+        id_pin[ZERO_VALUE] = ZERO_VALUE;
+        id_pin[ONE_VALUE]  = ZERO_VALUE;
         
         Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", ZERO_VALUE); //Display "0000" value, so user enters PIN
         setTextEnter_ID_PIN(); //Change text to "Enter PIN"

@@ -2,18 +2,5 @@
   Reading ./application.config
   Converting texts and fonts
   Creating compile items for all generated source files: ..\..\generated\fonts\src\ApplicationFontProvider.cpp;..\..\generated\fonts\src\CachedFont.cpp;..\..\generated\fonts\src\FontCache.cpp;..\..\generated\fonts\src\Font_verdana_10_4bpp_0.cpp;..\..\generated\fonts\src\Font_verdana_15_4bpp_0.cpp;..\..\generated\fonts\src\Font_verdana_20_4bpp_0.cpp;..\..\generated\fonts\src\Font_verdana_40_4bpp_0.cpp;..\..\generated\fonts\src\GeneratedFont.cpp;..\..\generated\fonts\src\Kerning_verdana_10_4bpp.cpp;..\..\generated\fonts\src\Kerning_verdana_15_4bpp.cpp;..\..\generated\fonts\src\Kerning_verdana_20_4bpp.cpp;..\..\generated\fonts\src\Kerning_verdana_40_4bpp.cpp;..\..\generated\fonts\src\Table_verdana_10_4bpp.cpp;..\..\generated\fonts\src\Table_verdana_15_4bpp.cpp;..\..\generated\fonts\src\Table_verdana_20_4bpp.cpp;..\..\generated\fonts\src\Table_verdana_40_4bpp.cpp;..\..\generated\fonts\src\UnmappedDataFont.cpp;..\..\generated\images\src\BitmapDatabase.cpp;..\..\generated\images\src\image_background_Welcome.cpp;..\..\generated\images\src\image_btn_round.cpp;..\..\generated\images\src\image_btn_round_pressed.cpp;..\..\generated\images\src\image_Elon.cpp;..\..\generated\images\src\image_Jeff.cpp;..\..\generated\texts\src\LanguageGb.cpp;..\..\generated\texts\src\Texts.cpp;..\..\generated\texts\src\TypedTextDatabase.cpp
-  FrontendApplicationBase.cpp
-  KeyPadViewBase.cpp
-  ResidentViewBase.cpp
-  WelcomeViewBase.cpp
-  mainBase.cpp
-  FrontendApplication.cpp
-  KeyPadPresenter.cpp
   KeyPadView.cpp
-  Model.cpp
-  ResidentPresenter.cpp
-  ResidentView.cpp
-  WelcomePresenter.cpp
-  WelcomeView.cpp
-  main.cpp
   Application.vcxproj -> C:\TouchGFXProjects\Brainiac\build\Debug\bin\Application.exe
