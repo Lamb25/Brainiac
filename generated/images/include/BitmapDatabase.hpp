@@ -9,6 +9,8 @@
 const uint16_t BITMAP_BACKGROUND_WELCOME_ID = 0;
 const uint16_t BITMAP_BTN_ROUND_ID = 1;
 const uint16_t BITMAP_BTN_ROUND_PRESSED_ID = 2;
+const uint16_t BITMAP_ELON_ID = 3;
+const uint16_t BITMAP_JEFF_ID = 4;
 
 namespace BitmapDatabase
 {

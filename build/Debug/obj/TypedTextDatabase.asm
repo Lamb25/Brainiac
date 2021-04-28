@@ -58,13 +58,13 @@ CONST	SEGMENT
 	DB	00H
 	DB	01H
 	DB	00H
+	DB	00H
+	DB	01H
+	DB	00H
+	DB	01H
+	DB	00H
+	DB	01H
 	DB	03H
-	DB	01H
-	DB	00H
-	DB	01H
-	DB	00H
-	DB	01H
-	DB	00H
 	DB	01H
 ?typedTextDatabaseArray@@3QBQBUTypedTextData@TypedText@touchgfx@@B DD FLAT:?typedText_database_DEFAULT@@3QBUTypedTextData@TypedText@touchgfx@@B ; typedTextDatabaseArray
 CONST	ENDS

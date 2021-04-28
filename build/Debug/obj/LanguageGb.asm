@@ -17,26 +17,26 @@ msvcjmc	ENDS
 CONST	SEGMENT
 ?indicesGb@@3QBIB DD 00H				; indicesGb
 	DD	058H
-	DD	070H
-	DD	080H
-	DD	07eH
 	DD	07cH
 	DD	07aH
 	DD	078H
+	DD	070H
 	DD	076H
+	DD	080H
+	DD	07eH
 	DD	074H
 	DD	072H
 	DD	056H
 	DD	06bH
-	DD	065H
 	DD	05fH
+	DD	065H
 	DD	06eH
 	DD	044H
-	DD	030H
-	DD	04dH
-	DD	016H
 	DD	03aH
+	DD	016H
+	DD	030H
 	DD	025H
+	DD	04dH
 CONST	ENDS
 PUBLIC	__JustMyCode_Default
 ; Function compile flags: /Odt

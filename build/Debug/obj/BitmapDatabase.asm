@@ -12,6 +12,8 @@ INCLUDELIB OLDNAMES
 EXTRN	?image_background_welcome@@3QBEB:BYTE		; image_background_welcome
 EXTRN	?image_btn_round@@3QBEB:BYTE			; image_btn_round
 EXTRN	?image_btn_round_pressed@@3QBEB:BYTE		; image_btn_round_pressed
+EXTRN	?image_elon@@3QBEB:BYTE				; image_elon
+EXTRN	?image_jeff@@3QBEB:BYTE				; image_jeff
 msvcjmc	SEGMENT
 __F1243270_Types@hpp DB 01H
 __5EB4A620_Bitmap@hpp DB 01H
@@ -42,6 +44,22 @@ CONST	SEGMENT
 	DW	09H
 	DW	043H
 	DW	04028H
+	DD	FLAT:?image_elon@@3QBEB
+	DD	00H
+	DW	0b4H
+	DW	0b4H
+	DW	00H
+	DW	00H
+	DW	0b4H
+	DW	0b4H
+	DD	FLAT:?image_jeff@@3QBEB
+	DD	00H
+	DW	096H
+	DW	096H
+	DW	00H
+	DW	00H
+	DW	096H
+	DW	096H
 CONST	ENDS
 PUBLIC	?getInstance@BitmapDatabase@@YAPBUBitmapData@Bitmap@touchgfx@@XZ ; BitmapDatabase::getInstance
 PUBLIC	?getInstanceSize@BitmapDatabase@@YAGXZ		; BitmapDatabase::getInstanceSize
@@ -73,7 +91,7 @@ _TEXT	ENDS
 _TEXT	SEGMENT
 ?getInstanceSize@BitmapDatabase@@YAGXZ PROC		; BitmapDatabase::getInstanceSize, COMDAT
 ; File C:\TouchGFXProjects\Brainiac\generated\images\src\BitmapDatabase.cpp
-; Line 26
+; Line 30
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 192				; 000000c0H
@@ -86,9 +104,9 @@ _TEXT	SEGMENT
 	rep stosd
 	mov	ecx, OFFSET __90E10482_BitmapDatabase@cpp
 	call	@__CheckForDebuggerJustMyCode@4
-; Line 27
-	mov	eax, 3
-; Line 28
+; Line 31
+	mov	eax, 5
+; Line 32
 	pop	edi
 	pop	esi
 	pop	ebx
@@ -105,7 +123,7 @@ _TEXT	ENDS
 _TEXT	SEGMENT
 ?getInstance@BitmapDatabase@@YAPBUBitmapData@Bitmap@touchgfx@@XZ PROC ; BitmapDatabase::getInstance, COMDAT
 ; File C:\TouchGFXProjects\Brainiac\generated\images\src\BitmapDatabase.cpp
-; Line 21
+; Line 25
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 192				; 000000c0H
@@ -118,9 +136,9 @@ _TEXT	SEGMENT
 	rep stosd
 	mov	ecx, OFFSET __90E10482_BitmapDatabase@cpp
 	call	@__CheckForDebuggerJustMyCode@4
-; Line 22
+; Line 26
 	mov	eax, OFFSET ?bitmap_database@@3QBUBitmapData@Bitmap@touchgfx@@B
-; Line 23
+; Line 27
 	pop	edi
 	pop	esi
 	pop	ebx

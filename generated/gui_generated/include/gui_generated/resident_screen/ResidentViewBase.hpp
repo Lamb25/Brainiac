@@ -31,6 +31,8 @@ protected:
     touchgfx::TextArea txt_ResidentName;
     touchgfx::TextArea txt_ResName_Elon;
     touchgfx::TextArea txt_ResName_Jeff;
+    touchgfx::Image imageElon;
+    touchgfx::Image imageJeff;
 
 private:
 
