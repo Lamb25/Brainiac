@@ -16,3 +16,11 @@ void ResidentPresenter::deactivate()
 {
 
 }
+
+/**************************************************************************
+brief: this function checks if resident is Elon or Jeff
+**************************************************************************/
+bool ResidentPresenter::isElonRequired()
+{
+    return model->checkIsElon();
+}

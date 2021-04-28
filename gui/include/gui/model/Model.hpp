@@ -58,12 +58,20 @@ public:
     **************************************************************************/
     void checkPIN(uint16_t chkPIN);
 
+    /**************************************************************************
+    brief: this function is determines if valid user was Elon or Jeff based
+    on valid ID entered
+    return: if is Elon's ID returns true 
+    **************************************************************************/
+    bool checkIsElon();
+
 protected:
     ModelListener* modelListener;
     uint16_t ID;
     uint16_t PIN;
     bool isValidID;
     bool isValidPIN;
+    bool isElon;
 };
 
 #endif // MODEL_HPP

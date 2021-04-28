@@ -41,6 +41,9 @@ public:
     **************************************************************************/
     void savePIN(uint16_t savePIN);
 
+    /**************************************************************************
+    brief: valid PIN or ID, transition state in KeyPad or go to Resident
+    **************************************************************************/
     virtual void keyPadStatusUpdated();
 
 private:

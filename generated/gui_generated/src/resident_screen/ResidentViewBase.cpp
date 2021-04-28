@@ -20,7 +20,8 @@ ResidentViewBase::ResidentViewBase()
     txt_ResidentName.setLinespacing(0);
     txt_ResidentName.setTypedText(touchgfx::TypedText(T_SINGLEUSEID21));
 
-    txt_ResName_Elon.setXY(257, 216);
+    txt_ResName_Elon.setXY(258, 216);
+    txt_ResName_Elon.setVisible(false);
     txt_ResName_Elon.setColor(touchgfx::Color::getColorFrom24BitRGB(171, 171, 171));
     txt_ResName_Elon.setLinespacing(0);
     txt_ResName_Elon.setTypedText(touchgfx::TypedText(T_SINGLEUSEID22));
@@ -32,6 +33,7 @@ ResidentViewBase::ResidentViewBase()
     txt_ResName_Jeff.setTypedText(touchgfx::TypedText(T_SINGLEUSEID24));
 
     imageElon.setXY(150, 28);
+    imageElon.setVisible(false);
     imageElon.setBitmap(touchgfx::Bitmap(BITMAP_ELON_ID));
 
     imageJeff.setXY(150, 28);

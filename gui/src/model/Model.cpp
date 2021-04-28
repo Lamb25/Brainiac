@@ -13,12 +13,13 @@ const uint16_t JEFF_PIN = 6159;
 uint16_t usersID_PIN[NUM_USERS][NUM_USERS] = { {ELON_ID, ELON_PIN},
 											   {JEFF_ID, JEFF_PIN} };
 
-Model::Model() : 
+Model::Model() :
 	modelListener(0),
-	ID(0), 
+	ID(0),
 	PIN(0),
 	isValidID(false),
-	isValidPIN(false)
+	isValidPIN(false),
+	isElon(true)
 {
 	
 }
@@ -81,6 +82,7 @@ void Model::checkID(uint16_t chkID)
 		if (chkID == usersID_PIN[i][ZERO_VALUE])
 		{
 			isValidID = true;
+			checkIsElon();
 			modelListener->keyPadStatusUpdated();
 		}
 	}
@@ -94,12 +96,40 @@ parameter: chkPIN -> PIN to evaluate
 void Model::checkPIN(uint16_t chkPIN)
 {
 	//Evaluate chkPIN with saved PINs
-	for (int i = 0; i < NUM_USERS; i++)
+	/*for (int i = 0; i < NUM_USERS; i++)
 	{
 		if (chkPIN == usersID_PIN[ZERO_VALUE][i])
 		{
 			isValidPIN = true;
 			modelListener->keyPadStatusUpdated();
 		}
+	}*/
+
+	if (true == isElon && chkPIN == ELON_PIN)
+	{
+		isValidPIN = true;
+		modelListener->keyPadStatusUpdated();
 	}
+	else if (false == isElon && chkPIN == JEFF_PIN)
+	{
+		isValidPIN = true;
+		modelListener->keyPadStatusUpdated();
+	}
+}
+
+/**************************************************************************
+brief: this function is determines if valid user was Elon or Jeff based on 
+valid ID entered
+parameter: chkID -> valid ID
+return: if is Elon's ID returns true
+**************************************************************************/
+bool Model::checkIsElon()
+{
+	//isElon initialized as true, only required to change if is Jeff's ID
+	if (ID == JEFF_ID)
+	{
+		isElon = false;
+	}
+
+	return isElon;
 }

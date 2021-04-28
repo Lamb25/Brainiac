@@ -27,6 +27,12 @@ public:
 
     virtual ~ResidentPresenter() {};
 
+    /**************************************************************************
+    brief: this function checks if resident is Elon or Jeff
+    return: true if Elon is required
+    **************************************************************************/
+    bool isElonRequired();
+
 private:
     ResidentPresenter();
 

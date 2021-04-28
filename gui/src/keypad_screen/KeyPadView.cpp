@@ -209,9 +209,7 @@ void KeyPadView::btnEnterClicked()
     {
         //Save ID to analize if its a valid one
         presenter->saveID(id_pin[keyPadCurrentStatus]);
-        //Change to PIN status
-        //keyPadStatus++; 
-
+        
         Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", ZERO_VALUE); //Display "0000" value, so user enters PIN
         setTextEnter_ID_PIN(); //Change text to "Enter PIN"
         multiplier = MUL_MAX_VAL; //Set multiplier back to max value
@@ -238,14 +236,16 @@ brief: this function sets text to: "ENTER ID" or "ENTER PIN"
 **************************************************************************/
 void KeyPadView::setTextEnter_ID_PIN()
 {
-    if (KeyPadStatus::enterID == keyPadCurrentStatus)//User to enter ID
+    //User to enter ID
+    if (KeyPadStatus::enterID == keyPadCurrentStatus)
     {
         txt_Enter_ID.setVisible(true);
         txt_Enter_PIN.setVisible(false);
         txt_Enter_ID.invalidate();
         txt_Enter_PIN.invalidate();
     }
-    else //User to enter PIN
+    //User to enter PIN
+    else 
     {
         txt_Enter_ID.setVisible(false);
         txt_Enter_PIN.setVisible(true);
@@ -254,6 +254,10 @@ void KeyPadView::setTextEnter_ID_PIN()
     }
 }
 
+/**************************************************************************
+brief: this function updates status to ID or PIN after enter button is 
+pressed. Update is triggered from Model
+**************************************************************************/
 void KeyPadView::updateKeyPadStatus()
 {
     if (KeyPadStatus::enterID == keyPadCurrentStatus)

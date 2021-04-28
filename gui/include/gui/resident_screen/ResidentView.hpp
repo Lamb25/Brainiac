@@ -11,7 +11,10 @@ public:
     virtual ~ResidentView() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+    void setElonVisible();
+    void setJeffVisible();
 protected:
+    bool isElonRequired;
 };
 
 #endif // RESIDENTVIEW_HPP
