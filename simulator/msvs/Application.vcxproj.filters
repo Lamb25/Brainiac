@@ -184,6 +184,18 @@
     <Filter Include="Header Files\generated\gui_generated\welcome_screen">
       <UniqueIdentifier>CD4283F6-C416-BEAF-D11C-C51E13DF6BB6</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\gui\resident_screen">
+      <UniqueIdentifier>9D16CDFA-8B9F-CAF8-BE43-9FF0670026AE</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\resident_screen">
+      <UniqueIdentifier>8B3679F0-0022-363A-BC0E-FDBC5723A32A</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\resident_screen">
+      <UniqueIdentifier>D3B7CA7E-7D5D-136A-949A-BD5AAA6A503F</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\resident_screen">
+      <UniqueIdentifier>A0B383DF-3338-6D5F-51CA-0FC6FBE96267</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
@@ -230,6 +242,15 @@
     </ClCompile>
     <ClCompile Include="..\..\generated\gui_generated\src\welcome_screen\WelcomeViewBase.cpp">
       <Filter>Source Files\generated\gui_generated\welcome_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\resident_screen\ResidentPresenter.cpp">
+      <Filter>Source Files\gui\resident_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\resident_screen\ResidentView.cpp">
+      <Filter>Source Files\gui\resident_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\resident_screen\ResidentViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\resident_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -681,6 +702,15 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\welcome_screen\WelcomeViewBase.hpp">
       <Filter>Header Files\generated\gui_generated\welcome_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\resident_screen\ResidentPresenter.hpp">
+      <Filter>Header Files\gui\resident_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\resident_screen\ResidentView.hpp">
+      <Filter>Header Files\gui\resident_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\resident_screen\ResidentViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\resident_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

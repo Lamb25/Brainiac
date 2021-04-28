@@ -10,8 +10,8 @@
 #include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
-#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 
 class KeyPadViewBase : public touchgfx::View<KeyPadPresenter>
 {
@@ -93,6 +93,7 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image background;
+    touchgfx::ButtonWithLabel btn_NumZero;
     touchgfx::ButtonWithLabel btn_NumOne;
     touchgfx::ButtonWithLabel btn_NumTwo;
     touchgfx::ButtonWithLabel btn_NumThree;
@@ -102,12 +103,12 @@ protected:
     touchgfx::ButtonWithLabel btn_NumSeven;
     touchgfx::ButtonWithLabel btn_NumEight;
     touchgfx::ButtonWithLabel btn_NumNine;
-    touchgfx::TextAreaWithOneWildcard txt_PIN_ID;
     touchgfx::ButtonWithLabel btn_Enter;
     touchgfx::ButtonWithLabel btn_Erase;
-    touchgfx::ButtonWithLabel btn_NumZero;
     touchgfx::TextArea txt_Enter_ID;
+    touchgfx::TextAreaWithOneWildcard txt_PIN_ID;
     touchgfx::TextArea txt_Enter_PIN;
+    touchgfx::ButtonWithLabel btn_Resident;
 
     /*
      * Wildcard Buffers

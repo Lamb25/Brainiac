@@ -21,6 +21,9 @@ public:
     // KeyPad
     void gotoKeyPadScreenWipeTransitionWest();
 
+    // Resident
+    void gotoResidentScreenWipeTransitionSouth();
+
 protected:
     touchgfx::Callback<FrontendApplicationBase> transitionCallback;
     FrontendHeap& frontendHeap;
@@ -31,6 +34,9 @@ protected:
 
     // KeyPad
     void gotoKeyPadScreenWipeTransitionWestImpl();
+
+    // Resident
+    void gotoResidentScreenWipeTransitionSouthImpl();
 };
 
 #endif // FRONTENDAPPLICATIONBASE_HPP

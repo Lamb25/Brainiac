@@ -58,6 +58,14 @@ CONST	SEGMENT
 	DB	00H
 	DB	01H
 	DB	00H
+	DB	03H
+	DB	01H
+	DB	00H
+	DB	01H
+	DB	00H
+	DB	01H
+	DB	00H
+	DB	01H
 ?typedTextDatabaseArray@@3QBQBUTypedTextData@TypedText@touchgfx@@B DD FLAT:?typedText_database_DEFAULT@@3QBUTypedTextData@TypedText@touchgfx@@B ; typedTextDatabaseArray
 CONST	ENDS
 PUBLIC	?getInstance@TypedTextDatabase@@YAPBUTypedTextData@TypedText@touchgfx@@G@Z ; TypedTextDatabase::getInstance
@@ -70,7 +78,7 @@ PUBLIC	?touchgfx_fonts@@3PAPBVFont@touchgfx@@A		; touchgfx_fonts
 EXTRN	?getFont_verdana_20_4bpp@@YAAAVGeneratedFont@touchgfx@@XZ:PROC ; getFont_verdana_20_4bpp
 EXTRN	?getFont_verdana_40_4bpp@@YAAAVGeneratedFont@touchgfx@@XZ:PROC ; getFont_verdana_40_4bpp
 EXTRN	?getFont_verdana_10_4bpp@@YAAAVGeneratedFont@touchgfx@@XZ:PROC ; getFont_verdana_10_4bpp
-EXTRN	?getFont_verdana_25_4bpp@@YAAAVGeneratedFont@touchgfx@@XZ:PROC ; getFont_verdana_25_4bpp
+EXTRN	?getFont_verdana_15_4bpp@@YAAAVGeneratedFont@touchgfx@@XZ:PROC ; getFont_verdana_15_4bpp
 EXTRN	@__CheckForDebuggerJustMyCode@4:PROC
 EXTRN	__RTC_CheckEsp:PROC
 EXTRN	__RTC_InitBase:PROC
@@ -127,7 +135,7 @@ text$di	SEGMENT
 	call	?getFont_verdana_10_4bpp@@YAAAVGeneratedFont@touchgfx@@XZ ; getFont_verdana_10_4bpp
 	mov	DWORD PTR ?touchgfx_fonts@@3PAPBVFont@touchgfx@@A+8, eax
 ; Line 18
-	call	?getFont_verdana_25_4bpp@@YAAAVGeneratedFont@touchgfx@@XZ ; getFont_verdana_25_4bpp
+	call	?getFont_verdana_15_4bpp@@YAAAVGeneratedFont@touchgfx@@XZ ; getFont_verdana_15_4bpp
 	mov	DWORD PTR ?touchgfx_fonts@@3PAPBVFont@touchgfx@@A+12, eax
 	pop	edi
 	pop	esi
@@ -145,7 +153,7 @@ text$di	ENDS
 _TEXT	SEGMENT
 ?getInstanceSize@TypedTextDatabase@@YAGXZ PROC		; TypedTextDatabase::getInstanceSize, COMDAT
 ; File C:\TouchGFXProjects\Brainiac\generated\texts\src\TypedTextDatabase.cpp
-; Line 61
+; Line 65
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 192				; 000000c0H
@@ -158,9 +166,9 @@ _TEXT	SEGMENT
 	rep stosd
 	mov	ecx, OFFSET __C7F8060A_TypedTextDatabase@cpp
 	call	@__CheckForDebuggerJustMyCode@4
-; Line 62
-	mov	eax, 18					; 00000012H
-; Line 63
+; Line 66
+	mov	eax, 22					; 00000016H
+; Line 67
 	pop	edi
 	pop	esi
 	pop	ebx
@@ -179,7 +187,7 @@ tv65 = -196						; size = 4
 _fontId$ = 8						; size = 2
 ?resetFont@TypedTextDatabase@@YAXG@Z PROC		; TypedTextDatabase::resetFont, COMDAT
 ; File C:\TouchGFXProjects\Brainiac\generated\texts\src\TypedTextDatabase.cpp
-; Line 78
+; Line 82
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 196				; 000000c4H
@@ -192,7 +200,7 @@ _fontId$ = 8						; size = 2
 	rep stosd
 	mov	ecx, OFFSET __C7F8060A_TypedTextDatabase@cpp
 	call	@__CheckForDebuggerJustMyCode@4
-; Line 79
+; Line 83
 	movzx	eax, WORD PTR _fontId$[ebp]
 	mov	DWORD PTR tv65[ebp], eax
 	cmp	DWORD PTR tv65[ebp], 3
@@ -200,37 +208,37 @@ _fontId$ = 8						; size = 2
 	mov	ecx, DWORD PTR tv65[ebp]
 	jmp	DWORD PTR $LN9@resetFont[ecx*4]
 $LN4@resetFont:
-; Line 82
+; Line 86
 	call	?getFont_verdana_20_4bpp@@YAAAVGeneratedFont@touchgfx@@XZ ; getFont_verdana_20_4bpp
 	mov	ecx, 4
 	imul	edx, ecx, 0
 	mov	DWORD PTR ?touchgfx_fonts@@3PAPBVFont@touchgfx@@A[edx], eax
-; Line 83
+; Line 87
 	jmp	SHORT $LN1@resetFont
 $LN5@resetFont:
-; Line 85
+; Line 89
 	call	?getFont_verdana_40_4bpp@@YAAAVGeneratedFont@touchgfx@@XZ ; getFont_verdana_40_4bpp
 	mov	ecx, 4
 	shl	ecx, 0
 	mov	DWORD PTR ?touchgfx_fonts@@3PAPBVFont@touchgfx@@A[ecx], eax
-; Line 86
+; Line 90
 	jmp	SHORT $LN1@resetFont
 $LN6@resetFont:
-; Line 88
+; Line 92
 	call	?getFont_verdana_10_4bpp@@YAAAVGeneratedFont@touchgfx@@XZ ; getFont_verdana_10_4bpp
 	mov	ecx, 4
 	shl	ecx, 1
 	mov	DWORD PTR ?touchgfx_fonts@@3PAPBVFont@touchgfx@@A[ecx], eax
-; Line 89
+; Line 93
 	jmp	SHORT $LN1@resetFont
 $LN7@resetFont:
-; Line 91
-	call	?getFont_verdana_25_4bpp@@YAAAVGeneratedFont@touchgfx@@XZ ; getFont_verdana_25_4bpp
+; Line 95
+	call	?getFont_verdana_15_4bpp@@YAAAVGeneratedFont@touchgfx@@XZ ; getFont_verdana_15_4bpp
 	mov	ecx, 4
 	imul	edx, ecx, 3
 	mov	DWORD PTR ?touchgfx_fonts@@3PAPBVFont@touchgfx@@A[edx], eax
 $LN1@resetFont:
-; Line 94
+; Line 98
 	pop	edi
 	pop	esi
 	pop	ebx
@@ -256,7 +264,7 @@ _fontId$ = 8						; size = 2
 _font$ = 12						; size = 4
 ?setFont@TypedTextDatabase@@YAPBVFont@touchgfx@@GPBV23@@Z PROC ; TypedTextDatabase::setFont, COMDAT
 ; File C:\TouchGFXProjects\Brainiac\generated\texts\src\TypedTextDatabase.cpp
-; Line 71
+; Line 75
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 204				; 000000ccH
@@ -269,17 +277,17 @@ _font$ = 12						; size = 4
 	rep stosd
 	mov	ecx, OFFSET __C7F8060A_TypedTextDatabase@cpp
 	call	@__CheckForDebuggerJustMyCode@4
-; Line 72
+; Line 76
 	movzx	eax, WORD PTR _fontId$[ebp]
 	mov	ecx, DWORD PTR ?touchgfx_fonts@@3PAPBVFont@touchgfx@@A[eax*4]
 	mov	DWORD PTR _old$[ebp], ecx
-; Line 73
+; Line 77
 	movzx	eax, WORD PTR _fontId$[ebp]
 	mov	ecx, DWORD PTR _font$[ebp]
 	mov	DWORD PTR ?touchgfx_fonts@@3PAPBVFont@touchgfx@@A[eax*4], ecx
-; Line 74
+; Line 78
 	mov	eax, DWORD PTR _old$[ebp]
-; Line 75
+; Line 79
 	pop	edi
 	pop	esi
 	pop	ebx
@@ -296,7 +304,7 @@ _TEXT	ENDS
 _TEXT	SEGMENT
 ?getFonts@TypedTextDatabase@@YAPAPBVFont@touchgfx@@XZ PROC ; TypedTextDatabase::getFonts, COMDAT
 ; File C:\TouchGFXProjects\Brainiac\generated\texts\src\TypedTextDatabase.cpp
-; Line 66
+; Line 70
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 192				; 000000c0H
@@ -309,9 +317,9 @@ _TEXT	SEGMENT
 	rep stosd
 	mov	ecx, OFFSET __C7F8060A_TypedTextDatabase@cpp
 	call	@__CheckForDebuggerJustMyCode@4
-; Line 67
+; Line 71
 	mov	eax, OFFSET ?touchgfx_fonts@@3PAPBVFont@touchgfx@@A ; touchgfx_fonts
-; Line 68
+; Line 72
 	pop	edi
 	pop	esi
 	pop	ebx
@@ -329,7 +337,7 @@ _TEXT	SEGMENT
 _id$ = 8						; size = 2
 ?getInstance@TypedTextDatabase@@YAPBUTypedTextData@TypedText@touchgfx@@G@Z PROC ; TypedTextDatabase::getInstance, COMDAT
 ; File C:\TouchGFXProjects\Brainiac\generated\texts\src\TypedTextDatabase.cpp
-; Line 56
+; Line 60
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 192				; 000000c0H
@@ -342,10 +350,10 @@ _id$ = 8						; size = 2
 	rep stosd
 	mov	ecx, OFFSET __C7F8060A_TypedTextDatabase@cpp
 	call	@__CheckForDebuggerJustMyCode@4
-; Line 57
+; Line 61
 	movzx	eax, WORD PTR _id$[ebp]
 	mov	eax, DWORD PTR ?typedTextDatabaseArray@@3QBQBUTypedTextData@TypedText@touchgfx@@B[eax*4]
-; Line 58
+; Line 62
 	pop	edi
 	pop	esi
 	pop	ebx

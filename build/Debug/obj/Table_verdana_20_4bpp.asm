@@ -132,6 +132,16 @@ CONST	SEGMENT
 	DB	00H
 	DB	00H
 	DD	033aH
+	DW	03aH
+	DB	03H
+	DB	0bH
+	DB	0bH
+	DB	03H
+	DB	09H
+	DB	00H
+	DB	00H
+	DB	00H
+	DD	0350H
 	DW	03fH
 	DB	09H
 	DB	0eH
@@ -139,9 +149,19 @@ CONST	SEGMENT
 	DB	01H
 	DB	0bH
 	DB	00H
+	DB	01H
+	DB	00H
+	DD	0396H
+	DW	042H
+	DB	0cH
+	DB	0eH
+	DB	0eH
+	DB	01H
+	DB	0eH
 	DB	00H
 	DB	00H
-	DD	0380H
+	DB	00H
+	DD	03eaH
 	DW	045H
 	DB	0bH
 	DB	0eH
@@ -151,7 +171,7 @@ CONST	SEGMENT
 	DB	00H
 	DB	00H
 	DB	00H
-	DD	03d4H
+	DD	043eH
 	DW	049H
 	DB	07H
 	DB	0eH
@@ -161,7 +181,17 @@ CONST	SEGMENT
 	DB	00H
 	DB	00H
 	DB	00H
-	DD	040cH
+	DD	0476H
+	DW	04aH
+	DB	08H
+	DB	0eH
+	DB	0eH
+	DB	00H
+	DB	09H
+	DB	01H
+	DB	01H
+	DB	00H
+	DD	04aeH
 	DW	04cH
 	DB	0bH
 	DB	0eH
@@ -171,7 +201,37 @@ CONST	SEGMENT
 	DB	00H
 	DB	00H
 	DB	00H
-	DD	0460H
+	DD	0502H
+	DW	04dH
+	DB	0eH
+	DB	0eH
+	DB	0eH
+	DB	01H
+	DB	011H
+	DB	00H
+	DB	00H
+	DB	00H
+	DD	0564H
+	DW	04eH
+	DB	0dH
+	DB	0eH
+	DB	0eH
+	DB	01H
+	DB	0fH
+	DB	00H
+	DB	00H
+	DB	00H
+	DD	05c6H
+	DW	052H
+	DB	0dH
+	DB	0eH
+	DB	0eH
+	DB	01H
+	DB	0eH
+	DB	00H
+	DB	00H
+	DB	00H
+	DD	0628H
 	DW	061H
 	DB	0aH
 	DB	0bH
@@ -181,7 +241,17 @@ CONST	SEGMENT
 	DB	00H
 	DB	00H
 	DB	00H
-	DD	0497H
+	DD	065fH
+	DW	064H
+	DB	0aH
+	DB	0fH
+	DB	0fH
+	DB	01H
+	DB	0cH
+	DB	00H
+	DB	00H
+	DB	00H
+	DD	06aaH
 	DW	065H
 	DB	0aH
 	DB	0bH
@@ -191,7 +261,17 @@ CONST	SEGMENT
 	DB	00H
 	DB	00H
 	DB	00H
-	DD	04ceH
+	DD	06e1H
+	DW	066H
+	DB	08H
+	DB	0fH
+	DB	0fH
+	DB	00H
+	DB	07H
+	DB	00H
+	DB	00H
+	DB	00H
+	DD	071dH
 	DW	067H
 	DB	0aH
 	DB	0fH
@@ -201,7 +281,47 @@ CONST	SEGMENT
 	DB	00H
 	DB	00H
 	DB	00H
-	DD	0519H
+	DD	0768H
+	DW	069H
+	DB	03H
+	DB	0eH
+	DB	0eH
+	DB	01H
+	DB	05H
+	DB	00H
+	DB	00H
+	DB	00H
+	DD	0784H
+	DW	06bH
+	DB	0bH
+	DB	0fH
+	DB	0fH
+	DB	01H
+	DB	0cH
+	DB	00H
+	DB	00H
+	DB	00H
+	DD	07deH
+	DW	06cH
+	DB	03H
+	DB	0fH
+	DB	0fH
+	DB	01H
+	DB	05H
+	DB	00H
+	DB	00H
+	DB	00H
+	DD	07fcH
+	DW	06dH
+	DB	011H
+	DB	0bH
+	DB	0bH
+	DB	01H
+	DB	013H
+	DB	00H
+	DB	00H
+	DB	00H
+	DD	085fH
 	DW	06eH
 	DB	0aH
 	DB	0bH
@@ -211,7 +331,7 @@ CONST	SEGMENT
 	DB	00H
 	DB	00H
 	DB	00H
-	DD	0550H
+	DD	0896H
 	DW	06fH
 	DB	0bH
 	DB	0bH
@@ -221,7 +341,7 @@ CONST	SEGMENT
 	DB	00H
 	DB	00H
 	DB	00H
-	DD	0592H
+	DD	08d8H
 	DW	072H
 	DB	08H
 	DB	0bH
@@ -231,7 +351,7 @@ CONST	SEGMENT
 	DB	00H
 	DB	00H
 	DB	00H
-	DD	05beH
+	DD	0904H
 	DW	073H
 	DB	09H
 	DB	0bH
@@ -241,13 +361,33 @@ CONST	SEGMENT
 	DB	00H
 	DB	00H
 	DB	00H
-	DD	05f5H
+	DD	093bH
 	DW	074H
 	DB	08H
 	DB	0eH
 	DB	0eH
 	DB	00H
 	DB	08H
+	DB	00H
+	DB	00H
+	DB	00H
+	DD	0973H
+	DW	075H
+	DB	0aH
+	DB	0bH
+	DB	0bH
+	DB	01H
+	DB	0dH
+	DB	00H
+	DB	00H
+	DB	00H
+	DD	09aaH
+	DW	07aH
+	DB	0aH
+	DB	0bH
+	DB	0bH
+	DB	00H
+	DB	0bH
 	DB	00H
 	DB	00H
 	DB	00H
@@ -425,7 +565,7 @@ _TEXT	SEGMENT
 __$EHRec$ = -12						; size = 12
 ?getFont_verdana_20_4bpp@@YAAAVGeneratedFont@touchgfx@@XZ PROC ; getFont_verdana_20_4bpp, COMDAT
 ; File C:\TouchGFXProjects\Brainiac\generated\fonts\src\Table_verdana_20_4bpp.cpp
-; Line 45
+; Line 59
 	push	ebp
 	mov	ebp, esp
 	push	-1
@@ -447,7 +587,7 @@ __$EHRec$ = -12						; size = 12
 	mov	DWORD PTR fs:0, eax
 	mov	ecx, OFFSET __D0B030F4_Table_verdana_20_4bpp@cpp
 	call	@__CheckForDebuggerJustMyCode@4
-; Line 46
+; Line 60
 	mov	eax, DWORD PTR __tls_index
 	mov	ecx, DWORD PTR fs:__tls_array
 	mov	edx, DWORD PTR [ecx+eax*4]
@@ -471,7 +611,7 @@ __$EHRec$ = -12						; size = 12
 	push	4
 	push	4
 	push	20					; 00000014H
-	push	23					; 00000017H
+	push	37					; 00000025H
 	push	OFFSET ?glyphs_verdana_20_4bpp@@3QBUGlyphNode@touchgfx@@B ; glyphs_verdana_20_4bpp
 	mov	ecx, OFFSET ?verdana_20_4bpp@?1??getFont_verdana_20_4bpp@@YAAAVGeneratedFont@touchgfx@@XZ@4V23@A
 	call	??0GeneratedFont@touchgfx@@QAE@PBUGlyphNode@1@GGEEEEEPBQBEPBUKerningNode@1@GGQBG@Z ; touchgfx::GeneratedFont::GeneratedFont
@@ -483,9 +623,9 @@ __$EHRec$ = -12						; size = 12
 	call	__Init_thread_footer
 	add	esp, 4
 $LN2@getFont_ve:
-; Line 47
+; Line 61
 	mov	eax, OFFSET ?verdana_20_4bpp@?1??getFont_verdana_20_4bpp@@YAAAVGeneratedFont@touchgfx@@XZ@4V23@A
-; Line 48
+; Line 62
 	mov	ecx, DWORD PTR __$EHRec$[ebp]
 	mov	DWORD PTR fs:0, ecx
 	pop	ecx

@@ -87,6 +87,32 @@ CONST	SEGMENT
 	DW	063H
 	DW	068H
 	DW	00H
+	DW	052H
+	DW	065H
+	DW	073H
+	DW	069H
+	DW	064H
+	DW	065H
+	DW	06eH
+	DW	074H
+	DW	020H
+	DW	04eH
+	DW	061H
+	DW	06dH
+	DW	065H
+	DW	03aH
+	DW	00H
+	DW	04aH
+	DW	065H
+	DW	066H
+	DW	066H
+	DW	020H
+	DW	042H
+	DW	065H
+	DW	07aH
+	DW	06fH
+	DW	073H
+	DW	00H
 	DW	045H
 	DW	06eH
 	DW	074H
@@ -98,6 +124,16 @@ CONST	SEGMENT
 	DW	04eH
 	DW	00H
 	DW	045H
+	DW	06cH
+	DW	06fH
+	DW	06eH
+	DW	020H
+	DW	04dH
+	DW	075H
+	DW	073H
+	DW	06bH
+	DW	00H
+	DW	045H
 	DW	06eH
 	DW	074H
 	DW	065H
@@ -105,6 +141,15 @@ CONST	SEGMENT
 	DW	020H
 	DW	049H
 	DW	044H
+	DW	00H
+	DW	052H
+	DW	065H
+	DW	073H
+	DW	069H
+	DW	064H
+	DW	065H
+	DW	06eH
+	DW	074H
 	DW	00H
 	DW	02H
 	DW	00H
@@ -132,9 +177,11 @@ CONST	SEGMENT
 	DW	030H
 	DW	030H
 	DW	00H
+	DW	031H
+	DW	00H
 	DW	039H
 	DW	00H
-	DW	031H
+	DW	038H
 	DW	00H
 	DW	037H
 	DW	00H
@@ -148,9 +195,6 @@ CONST	SEGMENT
 	DW	00H
 	DW	032H
 	DW	00H
-	DW	038H
-	DW	00H
-	ORG $+2
 ?staticLanguageIndices@@3QBQBIB DD FLAT:?indicesGb@@3QBIB ; staticLanguageIndices
 CONST	ENDS
 PUBLIC	?getStringWidth@Font@touchgfx@@UBAGPBGZZ	; touchgfx::Font::getStringWidth
@@ -705,7 +749,7 @@ _id$ = 8						; size = 2
 _translation$ = 12					; size = 4
 ?setTranslation@Texts@touchgfx@@SAXGPBX@Z PROC		; touchgfx::Texts::setTranslation, COMDAT
 ; File C:\TouchGFXProjects\Brainiac\generated\texts\src\Texts.cpp
-; Line 135
+; Line 139
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 192				; 000000c0H
@@ -718,11 +762,11 @@ _translation$ = 12					; size = 4
 	rep stosd
 	mov	ecx, OFFSET __AD80A74A_Texts@cpp
 	call	@__CheckForDebuggerJustMyCode@4
-; Line 136
+; Line 140
 	movzx	eax, WORD PTR _id$[ebp]
 	mov	ecx, DWORD PTR _translation$[ebp]
 	mov	DWORD PTR ?languagesArray@@3PAPBUTranslationHeader@@A[eax*4], ecx
-; Line 137
+; Line 141
 	pop	edi
 	pop	esi
 	pop	ebx
@@ -742,7 +786,7 @@ _id$ = 8						; size = 2
 ?getText@Texts@touchgfx@@QBEPBGG@Z PROC			; touchgfx::Texts::getText, COMDAT
 ; _this$ = ecx
 ; File C:\TouchGFXProjects\Brainiac\generated\texts\src\Texts.cpp
-; Line 140
+; Line 144
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 204				; 000000ccH
@@ -758,13 +802,13 @@ _id$ = 8						; size = 2
 	mov	DWORD PTR _this$[ebp], ecx
 	mov	ecx, OFFSET __AD80A74A_Texts@cpp
 	call	@__CheckForDebuggerJustMyCode@4
-; Line 141
+; Line 145
 	movzx	eax, WORD PTR _id$[ebp]
 	mov	ecx, DWORD PTR ?currentLanguageIndices@@3PBIB
 	mov	edx, DWORD PTR [ecx+eax*4]
 	mov	eax, DWORD PTR ?currentLanguagePtr@@3PBGB
 	lea	eax, DWORD PTR [eax+edx*2]
-; Line 142
+; Line 146
 	pop	edi
 	pop	esi
 	pop	ebx
@@ -784,7 +828,7 @@ _currentLanguageTypedText$ = -8				; size = 4
 _id$ = 8						; size = 2
 ?setLanguage@Texts@touchgfx@@SAXG@Z PROC		; touchgfx::Texts::setLanguage, COMDAT
 ; File C:\TouchGFXProjects\Brainiac\generated\texts\src\Texts.cpp
-; Line 105
+; Line 109
 	push	ebp
 	mov	ebp, esp
 	sub	esp, 216				; 000000d8H
@@ -797,56 +841,56 @@ _id$ = 8						; size = 2
 	rep stosd
 	mov	ecx, OFFSET __AD80A74A_Texts@cpp
 	call	@__CheckForDebuggerJustMyCode@4
-; Line 106
+; Line 110
 	mov	DWORD PTR _currentLanguageTypedText$[ebp], 0
-; Line 107
+; Line 111
 	movzx	eax, WORD PTR _id$[ebp]
 	cmp	eax, 1
 	jge	SHORT $LN2@setLanguag
-; Line 109
+; Line 113
 	movzx	eax, WORD PTR _id$[ebp]
 	cmp	DWORD PTR ?languagesArray@@3PAPBUTranslationHeader@@A[eax*4], 0
 	je	SHORT $LN3@setLanguag
-; Line 112
+; Line 116
 	movzx	eax, WORD PTR _id$[ebp]
 	mov	ecx, DWORD PTR ?languagesArray@@3PAPBUTranslationHeader@@A[eax*4]
 	mov	DWORD PTR _translation$1[ebp], ecx
-; Line 113
+; Line 117
 	mov	eax, DWORD PTR _translation$1[ebp]
 	mov	ecx, DWORD PTR _translation$1[ebp]
 	add	ecx, DWORD PTR [eax]
 	mov	DWORD PTR ?currentLanguagePtr@@3PBGB, ecx
-; Line 114
+; Line 118
 	mov	eax, DWORD PTR _translation$1[ebp]
 	mov	ecx, DWORD PTR _translation$1[ebp]
 	add	ecx, DWORD PTR [eax+4]
 	mov	DWORD PTR ?currentLanguageIndices@@3PBIB, ecx
-; Line 115
+; Line 119
 	mov	eax, DWORD PTR _translation$1[ebp]
 	mov	ecx, DWORD PTR _translation$1[ebp]
 	add	ecx, DWORD PTR [eax+8]
 	mov	DWORD PTR _currentLanguageTypedText$[ebp], ecx
-; Line 116
+; Line 120
 	jmp	SHORT $LN2@setLanguag
 $LN3@setLanguag:
-; Line 120
+; Line 124
 	mov	DWORD PTR ?currentLanguagePtr@@3PBGB, OFFSET ?texts_all_languages@@3QBGB ; texts_all_languages
-; Line 121
+; Line 125
 	movzx	eax, WORD PTR _id$[ebp]
 	mov	ecx, DWORD PTR ?staticLanguageIndices@@3QBQBIB[eax*4]
 	mov	DWORD PTR ?currentLanguageIndices@@3PBIB, ecx
-; Line 122
+; Line 126
 	movzx	eax, WORD PTR _id$[ebp]
 	mov	ecx, DWORD PTR ?typedTextDatabaseArray@@3QBQBUTypedTextData@TypedText@touchgfx@@B[eax*4]
 	mov	DWORD PTR _currentLanguageTypedText$[ebp], ecx
 $LN2@setLanguag:
-; Line 126
+; Line 130
 	cmp	DWORD PTR _currentLanguageTypedText$[ebp], 0
 	je	SHORT $LN1@setLanguag
-; Line 128
+; Line 132
 	mov	ax, WORD PTR _id$[ebp]
 	mov	WORD PTR ?currentLanguage@Texts@touchgfx@@0GA, ax ; touchgfx::Texts::currentLanguage
-; Line 129
+; Line 133
 	call	?getInstanceSize@TypedTextDatabase@@YAGXZ ; TypedTextDatabase::getInstanceSize
 	movzx	eax, ax
 	push	eax
@@ -857,7 +901,7 @@ $LN2@setLanguag:
 	call	?registerTypedTextDatabase@TypedText@touchgfx@@SAXPBUTypedTextData@12@PBQBVFont@2@G@Z ; touchgfx::TypedText::registerTypedTextDatabase
 	add	esp, 12					; 0000000cH
 $LN1@setLanguag:
-; Line 132
+; Line 136
 	pop	edi
 	pop	esi
 	pop	ebx

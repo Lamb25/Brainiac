@@ -69,6 +69,7 @@ build/MINGW32_NT-6.2/generated/simulator/src/mainBase.o: \
  touchgfx/framework/include/mvp/Presenter.hpp \
  touchgfx/framework/include/touchgfx/Screen.hpp \
  gui/include/gui/model/Model.hpp \
+ touchgfx/framework/include/touchgfx/hal/types.hpp \
  gui/include/gui/welcome_screen/WelcomeView.hpp \
  generated/gui_generated/include/gui_generated/welcome_screen/WelcomeViewBase.hpp \
  gui/include/gui/welcome_screen/WelcomePresenter.hpp \
@@ -83,6 +84,9 @@ build/MINGW32_NT-6.2/generated/simulator/src/mainBase.o: \
  generated/gui_generated/include/gui_generated/keypad_screen/KeyPadViewBase.hpp \
  gui/include/gui/keypad_screen/KeyPadPresenter.hpp \
  touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp \
+ gui/include/gui/resident_screen/ResidentView.hpp \
+ generated/gui_generated/include/gui_generated/resident_screen/ResidentViewBase.hpp \
+ gui/include/gui/resident_screen/ResidentPresenter.hpp \
  touchgfx/framework/include/platform/driver/lcd/LCD16bpp.hpp
 
 generated/simulator/include/simulator/mainBase.hpp:
@@ -223,6 +227,8 @@ touchgfx/framework/include/touchgfx/Screen.hpp:
 
 gui/include/gui/model/Model.hpp:
 
+touchgfx/framework/include/touchgfx/hal/types.hpp:
+
 gui/include/gui/welcome_screen/WelcomeView.hpp:
 
 generated/gui_generated/include/gui_generated/welcome_screen/WelcomeViewBase.hpp:
@@ -250,5 +256,11 @@ generated/gui_generated/include/gui_generated/keypad_screen/KeyPadViewBase.hpp:
 gui/include/gui/keypad_screen/KeyPadPresenter.hpp:
 
 touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:
+
+gui/include/gui/resident_screen/ResidentView.hpp:
+
+generated/gui_generated/include/gui_generated/resident_screen/ResidentViewBase.hpp:
+
+gui/include/gui/resident_screen/ResidentPresenter.hpp:
 
 touchgfx/framework/include/platform/driver/lcd/LCD16bpp.hpp:

@@ -9,14 +9,14 @@
 #define EIGHT_VALUE 8
 #define NINE_VALUE  9
 #define TEN_DIVIDER 10
-#define MUL_MAX_VAL 1000; 
+#define MUL_MAX_VAL 1000
 
 #include <gui/keypad_screen/KeyPadView.hpp>
 
 /**************** Global Variables ****************/
 uint16_t id_pin[AMOUNTOFSTATUS] = { 0, 0 };
 uint16_t multiplier = MUL_MAX_VAL;
-uint16_t  keyPadStatus = 0; //variable to know if screen requires PIN or ID
+uint16_t keyPadCurrentStatus = 0; //variable to know if screen requires PIN or ID
 
 /********************* Enums *********************/
 enum KeyPadStatus
@@ -34,7 +34,7 @@ KeyPadView::KeyPadView()
 void KeyPadView::setupScreen()
 {
     KeyPadViewBase::setupScreen();
-    keyPadStatus = (uint8_t)KeyPadStatus::enterID;
+    keyPadCurrentStatus = (uint8_t)KeyPadStatus::enterID;
     setTextEnter_ID_PIN();
 }
 
@@ -53,8 +53,8 @@ number of times buttons have been pressed before
 **************************************************************************/
 void KeyPadView::btnNumZeroClicked()
 {
-    id_pin[keyPadStatus] += multiplier * ZERO_VALUE;
-    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadStatus]);
+    id_pin[keyPadCurrentStatus] += multiplier * ZERO_VALUE;
+    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadCurrentStatus]);
     txt_PIN_ID.invalidate();
 
     multiplier = multiplier / TEN_DIVIDER;
@@ -67,8 +67,8 @@ number of times buttons have been pressed before
 **************************************************************************/
 void KeyPadView::btnNumOneClicked()
 {
-    id_pin[keyPadStatus] += multiplier * ONE_VALUE;
-    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadStatus]);
+    id_pin[keyPadCurrentStatus] += multiplier * ONE_VALUE;
+    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadCurrentStatus]);
     txt_PIN_ID.invalidate();
 
     multiplier = multiplier / TEN_DIVIDER;
@@ -81,8 +81,8 @@ number of times buttons have been pressed before
 **************************************************************************/
 void KeyPadView::btnNumTwoClicked()
 {
-    id_pin[keyPadStatus] += multiplier * TWO_VALUE;
-    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadStatus]);
+    id_pin[keyPadCurrentStatus] += multiplier * TWO_VALUE;
+    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadCurrentStatus]);
     txt_PIN_ID.invalidate();
 
     multiplier = multiplier / TEN_DIVIDER;
@@ -95,8 +95,8 @@ number of times buttons have been pressed before
 **************************************************************************/
 void KeyPadView::btnNumThreeClicked()
 {
-    id_pin[keyPadStatus] += multiplier * THREE_VALUE;
-    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadStatus]);
+    id_pin[keyPadCurrentStatus] += multiplier * THREE_VALUE;
+    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadCurrentStatus]);
     txt_PIN_ID.invalidate();
 
     multiplier = multiplier / TEN_DIVIDER;
@@ -109,8 +109,8 @@ number of times buttons have been pressed before
 **************************************************************************/
 void KeyPadView::btnNumFourClicked()
 {
-    id_pin[keyPadStatus] += multiplier * FOUR_VALUE;
-    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadStatus]);
+    id_pin[keyPadCurrentStatus] += multiplier * FOUR_VALUE;
+    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadCurrentStatus]);
     txt_PIN_ID.invalidate();
 
     multiplier = multiplier / TEN_DIVIDER;
@@ -123,8 +123,8 @@ number of times buttons have been pressed before
 **************************************************************************/
 void KeyPadView::btnNumFiveClicked()
 {
-    id_pin[keyPadStatus] += multiplier * FIVE_VALUE;
-    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadStatus]);
+    id_pin[keyPadCurrentStatus] += multiplier * FIVE_VALUE;
+    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadCurrentStatus]);
     txt_PIN_ID.invalidate();
 
     multiplier = multiplier / TEN_DIVIDER;
@@ -137,8 +137,8 @@ number of times buttons have been pressed before
 **************************************************************************/
 void KeyPadView::btnNumSixClicked()
 {
-    id_pin[keyPadStatus] += multiplier * SIX_VALUE;
-    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadStatus]);
+    id_pin[keyPadCurrentStatus] += multiplier * SIX_VALUE;
+    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadCurrentStatus]);
     txt_PIN_ID.invalidate();
 
     multiplier = multiplier / TEN_DIVIDER;
@@ -151,8 +151,8 @@ number of times buttons have been pressed before
 **************************************************************************/
 void KeyPadView::btnNumSevenClicked()
 {
-    id_pin[keyPadStatus] += multiplier * SEVEN_VALUE;
-    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadStatus]);
+    id_pin[keyPadCurrentStatus] += multiplier * SEVEN_VALUE;
+    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadCurrentStatus]);
     txt_PIN_ID.invalidate();
 
     multiplier = multiplier / TEN_DIVIDER;
@@ -165,8 +165,8 @@ number of times buttons have been pressed before
 **************************************************************************/
 void KeyPadView::btnNumEightClicked()
 {
-    id_pin[keyPadStatus] += multiplier * EIGHT_VALUE;
-    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadStatus]);
+    id_pin[keyPadCurrentStatus] += multiplier * EIGHT_VALUE;
+    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadCurrentStatus]);
     txt_PIN_ID.invalidate();
 
     multiplier = multiplier / TEN_DIVIDER;
@@ -179,8 +179,8 @@ number of times buttons have been pressed before
 **************************************************************************/
 void KeyPadView::btnNumNineClicked()
 {
-    id_pin[keyPadStatus] += multiplier * NINE_VALUE;
-    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadStatus]);
+    id_pin[keyPadCurrentStatus] += multiplier * NINE_VALUE;
+    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadCurrentStatus]);
     txt_PIN_ID.invalidate();
 
     multiplier = multiplier / TEN_DIVIDER;
@@ -192,8 +192,8 @@ ID/PIN value, setting it to 0000
 **************************************************************************/
 void KeyPadView::btnEraseClicked()
 {
-    id_pin[keyPadStatus] = ZERO_VALUE;
-    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadStatus]);
+    id_pin[keyPadCurrentStatus] = ZERO_VALUE;
+    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", id_pin[keyPadCurrentStatus]);
     txt_PIN_ID.invalidate();
 
     multiplier = MUL_MAX_VAL;
@@ -205,24 +205,24 @@ to next steps
 **************************************************************************/
 void KeyPadView::btnEnterClicked()
 {
-    if (KeyPadStatus::enterID == keyPadStatus) //from ID to PIN
+    if (KeyPadStatus::enterID == keyPadCurrentStatus) //from ID to PIN
     {
         //Save ID to analize if its a valid one
-        presenter->saveID(id_pin[keyPadStatus]);
+        presenter->saveID(id_pin[keyPadCurrentStatus]);
         //Change to PIN status
-        keyPadStatus++; 
+        //keyPadStatus++; 
 
         Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", ZERO_VALUE); //Display "0000" value, so user enters PIN
         setTextEnter_ID_PIN(); //Change text to "Enter PIN"
         multiplier = MUL_MAX_VAL; //Set multiplier back to max value
         txt_PIN_ID.invalidate();
     }
-    else if (KeyPadStatus::enterPIN == keyPadStatus)//after a correct PIN
+    else if (KeyPadStatus::enterPIN == keyPadCurrentStatus)//after a correct PIN
     {
         //Save PIN to analize if its a valid one
-        presenter->savePIN(id_pin[keyPadStatus]);
+        presenter->savePIN(id_pin[keyPadCurrentStatus]);
         //Reset status
-        keyPadStatus = 0;
+        keyPadCurrentStatus = 0;
 
         Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%04d", ZERO_VALUE); //Display "0000" value
         setTextEnter_ID_PIN(); //Change text to "Enter PIN"
@@ -238,7 +238,7 @@ brief: this function sets text to: "ENTER ID" or "ENTER PIN"
 **************************************************************************/
 void KeyPadView::setTextEnter_ID_PIN()
 {
-    if (KeyPadStatus::enterID == keyPadStatus)//User to enter ID
+    if (KeyPadStatus::enterID == keyPadCurrentStatus)//User to enter ID
     {
         txt_Enter_ID.setVisible(true);
         txt_Enter_PIN.setVisible(false);
@@ -251,5 +251,19 @@ void KeyPadView::setTextEnter_ID_PIN()
         txt_Enter_PIN.setVisible(true);
         txt_Enter_ID.invalidate();
         txt_Enter_PIN.invalidate();
+    }
+}
+
+void KeyPadView::updateKeyPadStatus()
+{
+    if (KeyPadStatus::enterID == keyPadCurrentStatus)
+    {
+        keyPadCurrentStatus++;
+    }
+    else
+    {
+        keyPadCurrentStatus = ZERO_VALUE;
+        btn_Resident.setVisible(true);
+        btn_Resident.invalidate();
     }
 }

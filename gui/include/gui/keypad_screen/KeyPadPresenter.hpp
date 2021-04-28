@@ -41,6 +41,8 @@ public:
     **************************************************************************/
     void savePIN(uint16_t savePIN);
 
+    virtual void keyPadStatusUpdated();
+
 private:
     KeyPadPresenter();
 

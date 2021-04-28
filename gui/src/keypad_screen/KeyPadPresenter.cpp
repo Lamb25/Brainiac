@@ -36,3 +36,8 @@ void KeyPadPresenter::savePIN(uint16_t savePIN)
 {
     model->savePIN(savePIN);
 }
+
+void KeyPadPresenter::keyPadStatusUpdated()
+{
+    view.updateKeyPadStatus();
+}

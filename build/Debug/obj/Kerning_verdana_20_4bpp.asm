@@ -16,8 +16,11 @@ __0D303FD6_Unicode@hpp DB 01H
 __213F4780_Font@hpp DB 01H
 msvcjmc	ENDS
 CONST	SEGMENT
-?kerning_verdana_20_4bpp@@3QBUKerningNode@touchgfx@@B DW 00H ; kerning_verdana_20_4bpp
-	DB	00H
+?kerning_verdana_20_4bpp@@3QBUKerningNode@touchgfx@@B DW 066H ; kerning_verdana_20_4bpp
+	DB	01H
+	ORG $+1
+	DW	04cH
+	DB	01H
 	ORG $+1
 CONST	ENDS
 PUBLIC	__JustMyCode_Default

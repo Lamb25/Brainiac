@@ -25,6 +25,9 @@ public:
     virtual void btnNumNineClicked();
     virtual void btnEraseClicked();
     virtual void btnEnterClicked();
+    
+    //New info from the presenter
+    void updateKeyPadStatus();
 
 private:
     void setTextEnter_ID_PIN();

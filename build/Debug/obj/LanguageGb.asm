@@ -16,23 +16,27 @@ __0D303FD6_Unicode@hpp DB 01H
 msvcjmc	ENDS
 CONST	SEGMENT
 ?indicesGb@@3QBIB DD 00H				; indicesGb
-	DD	02bH
-	DD	045H
-	DD	051H
-	DD	04fH
+	DD	058H
+	DD	070H
+	DD	080H
+	DD	07eH
+	DD	07cH
+	DD	07aH
+	DD	078H
+	DD	076H
+	DD	074H
+	DD	072H
+	DD	056H
+	DD	06bH
+	DD	065H
+	DD	05fH
+	DD	06eH
+	DD	044H
+	DD	030H
 	DD	04dH
-	DD	04bH
-	DD	049H
-	DD	047H
-	DD	053H
-	DD	043H
-	DD	029H
-	DD	03eH
-	DD	038H
-	DD	032H
-	DD	041H
-	DD	020H
 	DD	016H
+	DD	03aH
+	DD	025H
 CONST	ENDS
 PUBLIC	__JustMyCode_Default
 ; Function compile flags: /Odt

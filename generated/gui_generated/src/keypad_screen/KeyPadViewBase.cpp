@@ -16,6 +16,13 @@ KeyPadViewBase::KeyPadViewBase() :
     background.setXY(0, 0);
     background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_WELCOME_ID));
 
+    btn_NumZero.setXY(22, 66);
+    btn_NumZero.setBitmaps(touchgfx::Bitmap(BITMAP_BTN_ROUND_ID), touchgfx::Bitmap(BITMAP_BTN_ROUND_PRESSED_ID));
+    btn_NumZero.setLabelText(touchgfx::TypedText(T_SINGLEUSEID16));
+    btn_NumZero.setLabelColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
+    btn_NumZero.setLabelColorPressed(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
+    btn_NumZero.setAction(buttonCallback);
+
     btn_NumOne.setXY(119, 66);
     btn_NumOne.setBitmaps(touchgfx::Bitmap(BITMAP_BTN_ROUND_ID), touchgfx::Bitmap(BITMAP_BTN_ROUND_PRESSED_ID));
     btn_NumOne.setLabelText(touchgfx::TypedText(T_SINGLEUSEID3));
@@ -79,14 +86,6 @@ KeyPadViewBase::KeyPadViewBase() :
     btn_NumNine.setLabelColorPressed(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
     btn_NumNine.setAction(buttonCallback);
 
-    txt_PIN_ID.setXY(231, 17);
-    txt_PIN_ID.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
-    txt_PIN_ID.setLinespacing(0);
-    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%s", touchgfx::TypedText(T_SINGLEUSEID13).getText());
-    txt_PIN_ID.setWildcard(txt_PIN_IDBuffer);
-    txt_PIN_ID.resizeToCurrentText();
-    txt_PIN_ID.setTypedText(touchgfx::TypedText(T_SINGLEUSEID12));
-
     btn_Enter.setXY(22, 126);
     btn_Enter.setBitmaps(touchgfx::Bitmap(BITMAP_BTN_ROUND_ID), touchgfx::Bitmap(BITMAP_BTN_ROUND_PRESSED_ID));
     btn_Enter.setLabelText(touchgfx::TypedText(T_SINGLEUSEID14));
@@ -101,27 +100,37 @@ KeyPadViewBase::KeyPadViewBase() :
     btn_Erase.setLabelColorPressed(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
     btn_Erase.setAction(buttonCallback);
 
-    btn_NumZero.setXY(22, 66);
-    btn_NumZero.setBitmaps(touchgfx::Bitmap(BITMAP_BTN_ROUND_ID), touchgfx::Bitmap(BITMAP_BTN_ROUND_PRESSED_ID));
-    btn_NumZero.setLabelText(touchgfx::TypedText(T_SINGLEUSEID16));
-    btn_NumZero.setLabelColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
-    btn_NumZero.setLabelColorPressed(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
-    btn_NumZero.setAction(buttonCallback);
-
-    txt_Enter_ID.setXY(30, 17);
+    txt_Enter_ID.setXY(30, 8);
     txt_Enter_ID.setVisible(false);
     txt_Enter_ID.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
     txt_Enter_ID.setLinespacing(0);
     txt_Enter_ID.setTypedText(touchgfx::TypedText(T_SINGLEUSEID17));
 
-    txt_Enter_PIN.setXY(30, 17);
+    txt_PIN_ID.setXY(231, 8);
+    txt_PIN_ID.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
+    txt_PIN_ID.setLinespacing(0);
+    Unicode::snprintf(txt_PIN_IDBuffer, TXT_PIN_ID_SIZE, "%s", touchgfx::TypedText(T_SINGLEUSEID13).getText());
+    txt_PIN_ID.setWildcard(txt_PIN_IDBuffer);
+    txt_PIN_ID.resizeToCurrentText();
+    txt_PIN_ID.setTypedText(touchgfx::TypedText(T_SINGLEUSEID12));
+
+    txt_Enter_PIN.setXY(30, 8);
     txt_Enter_PIN.setVisible(false);
     txt_Enter_PIN.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
     txt_Enter_PIN.setLinespacing(0);
     txt_Enter_PIN.setTypedText(touchgfx::TypedText(T_SINGLEUSEID18));
 
+    btn_Resident.setXY(343, 2);
+    btn_Resident.setVisible(false);
+    btn_Resident.setBitmaps(touchgfx::Bitmap(BITMAP_BTN_ROUND_ID), touchgfx::Bitmap(BITMAP_BTN_ROUND_PRESSED_ID));
+    btn_Resident.setLabelText(touchgfx::TypedText(T_SINGLEUSEID25));
+    btn_Resident.setLabelColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
+    btn_Resident.setLabelColorPressed(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
+    btn_Resident.setAction(buttonCallback);
+
     add(__background);
     add(background);
+    add(btn_NumZero);
     add(btn_NumOne);
     add(btn_NumTwo);
     add(btn_NumThree);
@@ -131,12 +140,12 @@ KeyPadViewBase::KeyPadViewBase() :
     add(btn_NumSeven);
     add(btn_NumEight);
     add(btn_NumNine);
-    add(txt_PIN_ID);
     add(btn_Enter);
     add(btn_Erase);
-    add(btn_NumZero);
     add(txt_Enter_ID);
+    add(txt_PIN_ID);
     add(txt_Enter_PIN);
+    add(btn_Resident);
 }
 
 void KeyPadViewBase::setupScreen()
@@ -146,7 +155,14 @@ void KeyPadViewBase::setupScreen()
 
 void KeyPadViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &btn_NumOne)
+    if (&src == &btn_NumZero)
+    {
+        //btnNumZeroClicked
+        //When btn_NumZero clicked call virtual function
+        //Call btnNumZeroClicked
+        btnNumZeroClicked();
+    }
+    else if (&src == &btn_NumOne)
     {
         //btnNumOneClicked
         //When btn_NumOne clicked call virtual function
@@ -223,11 +239,11 @@ void KeyPadViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
         //Call btnEraseClicked
         btnEraseClicked();
     }
-    else if (&src == &btn_NumZero)
+    else if (&src == &btn_Resident)
     {
-        //btnNumZeroClicked
-        //When btn_NumZero clicked call virtual function
-        //Call btnNumZeroClicked
-        btnNumZeroClicked();
+        //btnResidentClicked
+        //When btn_Resident clicked change screen to Resident
+        //Go to Resident with screen transition towards South
+        application().gotoResidentScreenWipeTransitionSouth();
     }
 }

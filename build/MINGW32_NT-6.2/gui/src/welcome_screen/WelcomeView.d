@@ -41,6 +41,7 @@ build/MINGW32_NT-6.2/gui/src/welcome_screen/WelcomeView.o: \
  touchgfx/framework/include/platform/driver/touch/TouchController.hpp \
  touchgfx/framework/include/touchgfx/transitions/Transition.hpp \
  gui/include/gui/model/Model.hpp \
+ touchgfx/framework/include/touchgfx/hal/types.hpp \
  gui/include/gui/welcome_screen/WelcomePresenter.hpp \
  gui/include/gui/model/ModelListener.hpp \
  touchgfx/framework/include/touchgfx/widgets/Box.hpp \
@@ -135,6 +136,8 @@ touchgfx/framework/include/platform/driver/touch/TouchController.hpp:
 touchgfx/framework/include/touchgfx/transitions/Transition.hpp:
 
 gui/include/gui/model/Model.hpp:
+
+touchgfx/framework/include/touchgfx/hal/types.hpp:
 
 gui/include/gui/welcome_screen/WelcomePresenter.hpp:
 

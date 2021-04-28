@@ -18,6 +18,8 @@
 #include <gui/welcome_screen/WelcomePresenter.hpp>
 #include <gui/keypad_screen/KeyPadView.hpp>
 #include <gui/keypad_screen/KeyPadPresenter.hpp>
+#include <gui/resident_screen/ResidentView.hpp>
+#include <gui/resident_screen/ResidentPresenter.hpp>
 
 
 /**
@@ -42,7 +44,8 @@ public:
      */
     typedef touchgfx::meta::TypeList< WelcomeView,
             touchgfx::meta::TypeList< KeyPadView,
-            touchgfx::meta::Nil >
+            touchgfx::meta::TypeList< ResidentView,
+            touchgfx::meta::Nil > >
             > GeneratedViewTypes;
 
     /**
@@ -56,7 +59,8 @@ public:
      */
     typedef touchgfx::meta::TypeList< WelcomePresenter,
             touchgfx::meta::TypeList< KeyPadPresenter,
-            touchgfx::meta::Nil >
+            touchgfx::meta::TypeList< ResidentPresenter,
+            touchgfx::meta::Nil > >
             > GeneratedPresenterTypes;
 
     /**
@@ -70,7 +74,8 @@ public:
      */
     typedef touchgfx::meta::TypeList< touchgfx::NoTransition,
             touchgfx::meta::TypeList< WipeTransition<WEST>,
-            touchgfx::meta::Nil >
+            touchgfx::meta::TypeList< WipeTransition<SOUTH>,
+            touchgfx::meta::Nil > >
             > GeneratedTransitionTypes;
 
     /**

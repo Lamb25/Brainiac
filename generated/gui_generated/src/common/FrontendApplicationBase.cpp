@@ -13,6 +13,8 @@
 #include <gui/welcome_screen/WelcomePresenter.hpp>
 #include <gui/keypad_screen/KeyPadView.hpp>
 #include <gui/keypad_screen/KeyPadPresenter.hpp>
+#include <gui/resident_screen/ResidentView.hpp>
+#include <gui/resident_screen/ResidentPresenter.hpp>
 
 using namespace touchgfx;
 
@@ -55,4 +57,17 @@ void FrontendApplicationBase::gotoKeyPadScreenWipeTransitionWest()
 void FrontendApplicationBase::gotoKeyPadScreenWipeTransitionWestImpl()
 {
     touchgfx::makeTransition<KeyPadView, KeyPadPresenter, touchgfx::WipeTransition<WEST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+// Resident
+
+void FrontendApplicationBase::gotoResidentScreenWipeTransitionSouth()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplication::gotoResidentScreenWipeTransitionSouthImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplicationBase::gotoResidentScreenWipeTransitionSouthImpl()
+{
+    touchgfx::makeTransition<ResidentView, ResidentPresenter, touchgfx::WipeTransition<SOUTH>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

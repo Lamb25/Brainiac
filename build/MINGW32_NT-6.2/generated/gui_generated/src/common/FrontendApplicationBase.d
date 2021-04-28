@@ -37,7 +37,9 @@ build/MINGW32_NT-6.2/generated/gui_generated/src/common/FrontendApplicationBase.
  touchgfx/framework/include/platform/driver/button/ButtonController.hpp \
  touchgfx/framework/include/platform/driver/touch/TouchController.hpp \
  touchgfx/framework/include/touchgfx/transitions/Transition.hpp \
- gui/include/gui/model/Model.hpp gui/include/gui/common/FrontendHeap.hpp \
+ gui/include/gui/model/Model.hpp \
+ touchgfx/framework/include/touchgfx/hal/types.hpp \
+ gui/include/gui/common/FrontendHeap.hpp \
  generated/gui_generated/include/gui_generated/common/FrontendHeapBase.hpp \
  touchgfx/framework/include/touchgfx/transitions/NoTransition.hpp \
  touchgfx/framework/include/touchgfx/transitions/WipeTransition.hpp \
@@ -61,6 +63,9 @@ build/MINGW32_NT-6.2/generated/gui_generated/src/common/FrontendApplicationBase.
  generated/gui_generated/include/gui_generated/keypad_screen/KeyPadViewBase.hpp \
  gui/include/gui/keypad_screen/KeyPadPresenter.hpp \
  touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp \
+ gui/include/gui/resident_screen/ResidentView.hpp \
+ generated/gui_generated/include/gui_generated/resident_screen/ResidentViewBase.hpp \
+ gui/include/gui/resident_screen/ResidentPresenter.hpp \
  generated/texts/include/texts/TextKeysAndLanguages.hpp \
  touchgfx/framework/include/platform/driver/lcd/LCD16bpp.hpp
 
@@ -140,6 +145,8 @@ touchgfx/framework/include/touchgfx/transitions/Transition.hpp:
 
 gui/include/gui/model/Model.hpp:
 
+touchgfx/framework/include/touchgfx/hal/types.hpp:
+
 gui/include/gui/common/FrontendHeap.hpp:
 
 generated/gui_generated/include/gui_generated/common/FrontendHeapBase.hpp:
@@ -187,6 +194,12 @@ generated/gui_generated/include/gui_generated/keypad_screen/KeyPadViewBase.hpp:
 gui/include/gui/keypad_screen/KeyPadPresenter.hpp:
 
 touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:
+
+gui/include/gui/resident_screen/ResidentView.hpp:
+
+generated/gui_generated/include/gui_generated/resident_screen/ResidentViewBase.hpp:
+
+gui/include/gui/resident_screen/ResidentPresenter.hpp:
 
 generated/texts/include/texts/TextKeysAndLanguages.hpp:
 

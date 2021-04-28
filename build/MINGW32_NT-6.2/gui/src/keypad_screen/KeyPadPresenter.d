@@ -41,6 +41,7 @@ build/MINGW32_NT-6.2/gui/src/keypad_screen/KeyPadPresenter.o: \
  touchgfx/framework/include/platform/driver/touch/TouchController.hpp \
  touchgfx/framework/include/touchgfx/transitions/Transition.hpp \
  gui/include/gui/model/Model.hpp \
+ touchgfx/framework/include/touchgfx/hal/types.hpp \
  gui/include/gui/keypad_screen/KeyPadPresenter.hpp \
  gui/include/gui/model/ModelListener.hpp \
  touchgfx/framework/include/touchgfx/widgets/Box.hpp \
@@ -51,9 +52,9 @@ build/MINGW32_NT-6.2/gui/src/keypad_screen/KeyPadPresenter.o: \
  touchgfx/framework/include/touchgfx/widgets/ButtonWithLabel.hpp \
  touchgfx/framework/include/touchgfx/TypedText.hpp \
  touchgfx/framework/include/touchgfx/Texts.hpp \
- touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp \
  touchgfx/framework/include/touchgfx/widgets/TextArea.hpp \
- touchgfx/framework/include/touchgfx/FontManager.hpp
+ touchgfx/framework/include/touchgfx/FontManager.hpp \
+ touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp
 
 gui/include/gui/keypad_screen/KeyPadView.hpp:
 
@@ -137,6 +138,8 @@ touchgfx/framework/include/touchgfx/transitions/Transition.hpp:
 
 gui/include/gui/model/Model.hpp:
 
+touchgfx/framework/include/touchgfx/hal/types.hpp:
+
 gui/include/gui/keypad_screen/KeyPadPresenter.hpp:
 
 gui/include/gui/model/ModelListener.hpp:
@@ -157,8 +160,8 @@ touchgfx/framework/include/touchgfx/TypedText.hpp:
 
 touchgfx/framework/include/touchgfx/Texts.hpp:
 
-touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:
-
 touchgfx/framework/include/touchgfx/widgets/TextArea.hpp:
 
 touchgfx/framework/include/touchgfx/FontManager.hpp:
+
+touchgfx/framework/include/touchgfx/widgets/TextAreaWithWildcard.hpp:
