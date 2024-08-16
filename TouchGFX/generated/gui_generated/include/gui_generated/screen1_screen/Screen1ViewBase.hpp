@@ -28,6 +28,14 @@ public:
     {
         // Override and implement this function in Screen1
     }
+    virtual void inc_Odometer()
+    {
+        // Override and implement this function in Screen1
+    }
+    virtual void dec_Odometer()
+    {
+        // Override and implement this function in Screen1
+    }
 
 protected:
     FrontendApplication& application() {
@@ -45,12 +53,17 @@ protected:
     touchgfx::PainterRGB565Bitmap gauge_speedoPainter;
     touchgfx::TextAreaWithOneWildcard txt_PRNDL;
     touchgfx::BoxWithBorderButtonStyle< touchgfx::ClickButtonTrigger >  btn_PRNDL;
+    touchgfx::TextAreaWithOneWildcard txt_Odo;
+    touchgfx::BoxWithBorderButtonStyle< touchgfx::ClickButtonTrigger >  btn_DwnOdo;
+    touchgfx::BoxWithBorderButtonStyle< touchgfx::ClickButtonTrigger >  btn_UpOodo;
 
     /*
      * Wildcard Buffers
      */
     static const uint16_t TXT_PRNDL_SIZE = 2;
     touchgfx::Unicode::UnicodeChar txt_PRNDLBuffer[TXT_PRNDL_SIZE];
+    static const uint16_t TXT_ODO_SIZE = 7;
+    touchgfx::Unicode::UnicodeChar txt_OdoBuffer[TXT_ODO_SIZE];
 
 private:
 

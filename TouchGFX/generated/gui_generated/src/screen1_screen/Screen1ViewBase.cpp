@@ -56,7 +56,7 @@ Screen1ViewBase::Screen1ViewBase() :
     gauge_speedo.setArcPosition(19, 19, 146, 108);
     add(gauge_speedo);
 
-    txt_PRNDL.setXY(228, 179);
+    txt_PRNDL.setXY(228, 112);
     txt_PRNDL.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     txt_PRNDL.setLinespacing(0);
     Unicode::snprintf(txt_PRNDLBuffer, TXT_PRNDL_SIZE, "%s", touchgfx::TypedText(T_PRNDL_WILDCARD).getText());
@@ -70,8 +70,31 @@ Screen1ViewBase::Screen1ViewBase() :
     btn_PRNDL.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
     btn_PRNDL.setAlpha(0);
     btn_PRNDL.setAction(flexButtonCallback);
-    btn_PRNDL.setPosition(208, 171, 65, 65);
+    btn_PRNDL.setPosition(208, 104, 65, 65);
     add(btn_PRNDL);
+
+    txt_Odo.setXY(234, 169);
+    txt_Odo.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    txt_Odo.setLinespacing(0);
+    Unicode::snprintf(txt_OdoBuffer, TXT_ODO_SIZE, "%s", touchgfx::TypedText(T_ODO_WILDCARD).getText());
+    txt_Odo.setWildcard(txt_OdoBuffer);
+    txt_Odo.resizeToCurrentText();
+    txt_Odo.setTypedText(touchgfx::TypedText(T_ODO_DEFAULT));
+    add(txt_Odo);
+
+    btn_DwnOdo.setBoxWithBorderPosition(0, 0, 25, 18);
+    btn_DwnOdo.setBorderSize(5);
+    btn_DwnOdo.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
+    btn_DwnOdo.setAction(flexButtonCallback);
+    btn_DwnOdo.setPosition(172, 195, 25, 18);
+    add(btn_DwnOdo);
+
+    btn_UpOodo.setBoxWithBorderPosition(0, 0, 25, 18);
+    btn_UpOodo.setBorderSize(5);
+    btn_UpOodo.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
+    btn_UpOodo.setAction(flexButtonCallback);
+    btn_UpOodo.setPosition(279, 195, 25, 18);
+    add(btn_UpOodo);
 }
 
 Screen1ViewBase::~Screen1ViewBase()
@@ -92,5 +115,19 @@ void Screen1ViewBase::flexButtonCallbackHandler(const touchgfx::AbstractButtonCo
         //When btn_PRNDL clicked call virtual function
         //Call change_PRNDLvalue
         change_PRNDLvalue();
+    }
+    if (&src == &btn_UpOodo)
+    {
+        //Interaction2
+        //When btn_UpOodo clicked call virtual function
+        //Call inc_Odometer
+        inc_Odometer();
+    }
+    if (&src == &btn_DwnOdo)
+    {
+        //Interaction3
+        //When btn_DwnOdo clicked call virtual function
+        //Call dec_Odometer
+        dec_Odometer();
     }
 }

@@ -5,17 +5,26 @@
   </Languages>
   <Texts>
     <TextGroup Id="Group1" />
-    <TextGroup Id="Unsorted">
+    <TextGroup Id="PRNDL">
       <Text Id="prndl_WildCard" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">P</Translation>
       </Text>
-      <Text Id="prndl_Default" Alignment="Left" TypographyId="Large">
+      <Text Id="prndl_Default" Alignment="Center" TypographyId="Large">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
     </TextGroup>
+    <TextGroup Id="Odometer">
+      <Text Id="odo_WildCard" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0</Translation>
+      </Text>
+      <Text Id="odo_Default" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+    </TextGroup>
+    <TextGroup Id="Unsorted" />
   </Texts>
   <Typographies>
-    <Typography Id="Default" Font="verdana.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Default" Font="verdana.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0x30-0x39" />
     <Typography Id="Large" Font="verdana.ttf" Size="40" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0x50,0x52,0x4E,0x44,0x4C" />
     <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
   </Typographies>

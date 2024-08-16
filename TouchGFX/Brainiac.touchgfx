@@ -89,10 +89,9 @@
             "Type": "TextArea",
             "Name": "txt_PRNDL",
             "X": 228,
-            "Y": 179,
+            "Y": 112,
             "Width": 24,
             "Height": 41,
-            "LockPosition": true,
             "TextId": "prndl_Default",
             "TextRotation": "0",
             "Color": {
@@ -111,10 +110,9 @@
             "Type": "FlexButton",
             "Name": "btn_PRNDL",
             "X": 208,
-            "Y": 171,
+            "Y": 104,
             "Width": 65,
             "Height": 65,
-            "LockPosition": true,
             "Alpha": 0,
             "ButtonTrigger": {
               "Type": "ClickButtonTrigger"
@@ -124,6 +122,101 @@
                 "Type": "BoxWithBorderButtonStyle",
                 "Width": 65,
                 "Height": 65,
+                "LockToFlexButtonSize": true,
+                "BorderSize": 5,
+                "ColorReleased": {
+                  "Green": 102,
+                  "Blue": 153
+                },
+                "ColorPressed": {
+                  "Green": 153,
+                  "Blue": 204
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
+          },
+          {
+            "Type": "TextArea",
+            "Name": "txt_Odo",
+            "X": 234,
+            "Y": 169,
+            "Width": 13,
+            "Height": 20,
+            "TextId": "odo_Default",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "odo_WildCard",
+              "UseBuffer": true,
+              "BufferSize": 7
+            }
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "btn_DwnOdo",
+            "X": 172,
+            "Y": 195,
+            "Width": 25,
+            "Height": 18,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 25,
+                "Height": 18,
+                "LockToFlexButtonSize": true,
+                "BorderSize": 5,
+                "ColorReleased": {
+                  "Green": 102,
+                  "Blue": 153
+                },
+                "ColorPressed": {
+                  "Green": 153,
+                  "Blue": 204
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "btn_UpOodo",
+            "X": 279,
+            "Y": 195,
+            "Width": 25,
+            "Height": 18,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 25,
+                "Height": 18,
                 "LockToFlexButtonSize": true,
                 "BorderSize": 5,
                 "ColorReleased": {
@@ -157,6 +250,28 @@
             "Action": {
               "Type": "ActionCustom",
               "FunctionName": "change_PRNDLvalue"
+            }
+          },
+          {
+            "InteractionName": "Interaction2",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "btn_UpOodo"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "inc_Odometer"
+            }
+          },
+          {
+            "InteractionName": "Interaction3",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "btn_DwnOdo"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "dec_Odometer"
             }
           }
         ]

@@ -25,3 +25,24 @@ void Screen1View::change_PRNDLvalue()
     txt_PRNDL.resizeToCurrentText();
     txt_PRNDL.invalidate();
 }
+
+void Screen1View::inc_Odometer()
+{
+    presenter->inc_Odovalue();
+    int32_t value = presenter->get_Odovalue();
+    Unicode::snprintf(txt_OdoBuffer, TXT_ODO_SIZE, "%d", value);
+    txt_Odo.setWildcard(txt_OdoBuffer);
+    txt_Odo.resizeToCurrentText();
+    txt_Odo.invalidate();
+}
+
+
+void Screen1View::dec_Odometer()
+{
+    presenter->dec_Odovalue();
+    int32_t value = presenter->get_Odovalue();
+    Unicode::snprintf(txt_OdoBuffer, TXT_ODO_SIZE, "%d", value);
+    txt_Odo.setWildcard(txt_OdoBuffer);
+    txt_Odo.resizeToCurrentText();
+    txt_Odo.invalidate();
+}

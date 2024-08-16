@@ -31,6 +31,14 @@ public:
 
     char get_PRNDLvalue();
 
+    void set_Odovalue(int32_t newValue);
+
+    int32_t get_Odovalue();
+    
+    void inc_Odovalue();
+
+    void dec_Odovalue();
+
 private:
     Screen1Presenter();
 
