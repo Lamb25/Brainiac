@@ -1,6 +1,7 @@
 #ifndef MODEL_HPP
 #define MODEL_HPP
 #include <cstdint>
+#include <cstring>
 
 class ModelListener;
 
@@ -22,6 +23,7 @@ protected:
     ModelListener* modelListener;
 private:
     const char *prndl_values = "PRNDL";
+    const size_t len = strlen(prndl_values);
     char prndl;
 };
 
