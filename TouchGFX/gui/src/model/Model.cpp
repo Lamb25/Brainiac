@@ -28,3 +28,23 @@ char Model::get_PRNDLvalue()
 {
 	return prndl;
 }
+
+void Model::set_Odovalue(int32_t newValue)
+{
+	odo_value = newValue;
+}
+
+int32_t Model::get_Odovalue()
+{
+	return odo_value;
+}
+
+void Model::inc_Odovalue()
+{
+	odo_value++;
+}
+
+void Model::dec_Odovalue()
+{
+	odo_value--;
+}

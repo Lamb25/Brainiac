@@ -15,8 +15,6 @@ public:
         model = m;
     }
 
-    virtual void new_PRNDLValue(char newPRNDL) {}
-
 protected:
     Model* model;
 };

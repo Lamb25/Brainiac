@@ -3,6 +3,7 @@
 
 #include <gui_generated/screen1_screen/Screen1ViewBase.hpp>
 #include <gui/screen1_screen/Screen1Presenter.hpp>
+#include <cstdio>
 
 class Screen1View : public Screen1ViewBase
 {
@@ -12,7 +13,8 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
     virtual void change_PRNDLvalue();
-    void new_PRNDLvalue(char newPRNDL);
+    virtual void inc_Odometer();
+    virtual void dec_Odometer();
 protected:
 };
 
