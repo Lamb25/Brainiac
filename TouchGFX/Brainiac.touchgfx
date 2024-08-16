@@ -7,15 +7,15 @@
         "Components": [
           {
             "Type": "Image",
-            "Name": "image1",
+            "Name": "font_Screen1",
             "Width": 480,
             "Height": 272,
             "RelativeFilename": "__generated\\alternate_theme_images_backgrounds_480x272_gradient_dark.png"
           },
           {
             "Type": "Gauge",
-            "Name": "gau_speedo",
-            "X": 33,
+            "Name": "gauge_taco",
+            "X": 296,
             "Y": 44,
             "Width": 184,
             "Height": 184,
@@ -51,8 +51,7 @@
           },
           {
             "Type": "Gauge",
-            "Name": "gau_taco",
-            "X": 262,
+            "Name": "gauge_speedo",
             "Y": 44,
             "Width": 184,
             "Height": 184,
@@ -85,9 +84,82 @@
             "ArcRadius": 79.0,
             "ArcLineWidth": 78.0,
             "ArcCapStyle": "Butt"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "txt_PRNDL",
+            "X": 228,
+            "Y": 179,
+            "Width": 24,
+            "Height": 41,
+            "LockPosition": true,
+            "TextId": "prndl_Default",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "prndl_WildCard",
+              "UseBuffer": true,
+              "BufferSize": 2
+            }
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "btn_PRNDL",
+            "X": 208,
+            "Y": 171,
+            "Width": 65,
+            "Height": 65,
+            "LockPosition": true,
+            "Alpha": 0,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 65,
+                "Height": 65,
+                "LockToFlexButtonSize": true,
+                "BorderSize": 5,
+                "ColorReleased": {
+                  "Green": 102,
+                  "Blue": 153
+                },
+                "ColorPressed": {
+                  "Green": 153,
+                  "Blue": 204
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
           }
         ],
-        "Interactions": []
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "btn_PRNDL"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "change_PRNDLvalue"
+            }
+          }
+        ]
       }
     ],
     "CustomContainerDefinitions": [],

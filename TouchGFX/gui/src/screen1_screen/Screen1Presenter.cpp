@@ -16,3 +16,13 @@ void Screen1Presenter::deactivate()
 {
 
 }
+
+void Screen1Presenter::set_PRNDLvalue()
+{
+    model->set_PRNDLvalue();
+}
+
+char Screen1Presenter::get_PRNDLvalue()
+{
+    return model->get_PRNDLvalue();
+}

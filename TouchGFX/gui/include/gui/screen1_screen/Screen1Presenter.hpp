@@ -27,6 +27,10 @@ public:
 
     virtual ~Screen1Presenter() {}
 
+    void set_PRNDLvalue();
+
+    char get_PRNDLvalue();
+
 private:
     Screen1Presenter();
 

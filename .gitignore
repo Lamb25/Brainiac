@@ -1,2 +1,7 @@
 # ignore ALL .elf files
 *.elf
+
+# ignore folders
+TouchGFX/build/
+TouchGFX/simulator/msvs/.vs/*
+STM32CubeIDE/Debug/*

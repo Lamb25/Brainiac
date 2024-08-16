@@ -5,8 +5,10 @@
 #include <touchgfx/canvas_widget_renderer/CanvasWidgetRenderer.hpp>
 #include <touchgfx/Color.hpp>
 #include <images/BitmapDatabase.hpp>
+#include <texts/TextKeysAndLanguages.hpp>
 
-Screen1ViewBase::Screen1ViewBase()
+Screen1ViewBase::Screen1ViewBase() :
+    flexButtonCallback(this, &Screen1ViewBase::flexButtonCallbackHandler)
 {
     touchgfx::CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
     
@@ -14,45 +16,62 @@ Screen1ViewBase::Screen1ViewBase()
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     add(__background);
 
-    image1.setXY(0, 0);
-    image1.setBitmap(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_BACKGROUNDS_480X272_GRADIENT_DARK_ID));
-    add(image1);
+    font_Screen1.setXY(0, 0);
+    font_Screen1.setBitmap(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_BACKGROUNDS_480X272_GRADIENT_DARK_ID));
+    add(font_Screen1);
 
-    gau_speedo.setBackground(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_GAUGE_SMALL_BACKGROUNDS_LIGHT_FILLED_ID));
-    gau_speedo.setPosition(33, 44, 184, 184);
-    gau_speedo.setCenter(92, 92);
-    gau_speedo.setStartEndAngle(-119, 122);
-    gau_speedo.setRange(0, 100);
-    gau_speedo.setValue(0);
-    gau_speedo.setNeedle(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_GAUGE_SMALL_NEEDLES_ROUGH_ID, 8, 53);
-    gau_speedo.setMovingNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
-    gau_speedo.setSteadyNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
-    gau_speedo.setArcVisible();
-    gau_speedoPainter.setBitmap(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_GAUGE_SMALL_FILLERS_SWOOP_ID));
-    gau_speedo.getArc().setPainter(gau_speedoPainter);
-    gau_speedo.getArc().setRadius(79);
-    gau_speedo.getArc().setLineWidth(78);
-    gau_speedo.getArc().setCapPrecision(180);
-    gau_speedo.setArcPosition(19, 19, 146, 108);
-    add(gau_speedo);
+    gauge_taco.setBackground(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_GAUGE_SMALL_BACKGROUNDS_LIGHT_FILLED_ID));
+    gauge_taco.setPosition(296, 44, 184, 184);
+    gauge_taco.setCenter(92, 92);
+    gauge_taco.setStartEndAngle(-119, 122);
+    gauge_taco.setRange(0, 100);
+    gauge_taco.setValue(0);
+    gauge_taco.setNeedle(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_GAUGE_SMALL_NEEDLES_ROUGH_ID, 8, 53);
+    gauge_taco.setMovingNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
+    gauge_taco.setSteadyNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
+    gauge_taco.setArcVisible();
+    gauge_tacoPainter.setBitmap(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_GAUGE_SMALL_FILLERS_SWOOP_ID));
+    gauge_taco.getArc().setPainter(gauge_tacoPainter);
+    gauge_taco.getArc().setRadius(79);
+    gauge_taco.getArc().setLineWidth(78);
+    gauge_taco.getArc().setCapPrecision(180);
+    gauge_taco.setArcPosition(19, 19, 146, 108);
+    add(gauge_taco);
 
-    gau_tacdo.setBackground(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_GAUGE_SMALL_BACKGROUNDS_LIGHT_FILLED_ID));
-    gau_tacdo.setPosition(262, 44, 184, 184);
-    gau_tacdo.setCenter(92, 92);
-    gau_tacdo.setStartEndAngle(-119, 122);
-    gau_tacdo.setRange(0, 100);
-    gau_tacdo.setValue(0);
-    gau_tacdo.setNeedle(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_GAUGE_SMALL_NEEDLES_ROUGH_ID, 8, 53);
-    gau_tacdo.setMovingNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
-    gau_tacdo.setSteadyNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
-    gau_tacdo.setArcVisible();
-    gau_tacdoPainter.setBitmap(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_GAUGE_SMALL_FILLERS_SWOOP_ID));
-    gau_tacdo.getArc().setPainter(gau_tacdoPainter);
-    gau_tacdo.getArc().setRadius(79);
-    gau_tacdo.getArc().setLineWidth(78);
-    gau_tacdo.getArc().setCapPrecision(180);
-    gau_tacdo.setArcPosition(19, 19, 146, 108);
-    add(gau_tacdo);
+    gauge_speedo.setBackground(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_GAUGE_SMALL_BACKGROUNDS_LIGHT_FILLED_ID));
+    gauge_speedo.setPosition(0, 44, 184, 184);
+    gauge_speedo.setCenter(92, 92);
+    gauge_speedo.setStartEndAngle(-119, 122);
+    gauge_speedo.setRange(0, 100);
+    gauge_speedo.setValue(0);
+    gauge_speedo.setNeedle(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_GAUGE_SMALL_NEEDLES_ROUGH_ID, 8, 53);
+    gauge_speedo.setMovingNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
+    gauge_speedo.setSteadyNeedleRenderingAlgorithm(touchgfx::TextureMapper::BILINEAR_INTERPOLATION);
+    gauge_speedo.setArcVisible();
+    gauge_speedoPainter.setBitmap(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_GAUGE_SMALL_FILLERS_SWOOP_ID));
+    gauge_speedo.getArc().setPainter(gauge_speedoPainter);
+    gauge_speedo.getArc().setRadius(79);
+    gauge_speedo.getArc().setLineWidth(78);
+    gauge_speedo.getArc().setCapPrecision(180);
+    gauge_speedo.setArcPosition(19, 19, 146, 108);
+    add(gauge_speedo);
+
+    txt_PRNDL.setXY(228, 179);
+    txt_PRNDL.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    txt_PRNDL.setLinespacing(0);
+    Unicode::snprintf(txt_PRNDLBuffer, TXT_PRNDL_SIZE, "%s", touchgfx::TypedText(T_PRNDL_WILDCARD).getText());
+    txt_PRNDL.setWildcard(txt_PRNDLBuffer);
+    txt_PRNDL.resizeToCurrentText();
+    txt_PRNDL.setTypedText(touchgfx::TypedText(T_PRNDL_DEFAULT));
+    add(txt_PRNDL);
+
+    btn_PRNDL.setBoxWithBorderPosition(0, 0, 65, 65);
+    btn_PRNDL.setBorderSize(5);
+    btn_PRNDL.setBoxWithBorderColors(touchgfx::Color::getColorFromRGB(0, 102, 153), touchgfx::Color::getColorFromRGB(0, 153, 204), touchgfx::Color::getColorFromRGB(0, 51, 102), touchgfx::Color::getColorFromRGB(51, 102, 153));
+    btn_PRNDL.setAlpha(0);
+    btn_PRNDL.setAction(flexButtonCallback);
+    btn_PRNDL.setPosition(208, 171, 65, 65);
+    add(btn_PRNDL);
 }
 
 Screen1ViewBase::~Screen1ViewBase()
@@ -63,4 +82,15 @@ Screen1ViewBase::~Screen1ViewBase()
 void Screen1ViewBase::setupScreen()
 {
 
+}
+
+void Screen1ViewBase::flexButtonCallbackHandler(const touchgfx::AbstractButtonContainer& src)
+{
+    if (&src == &btn_PRNDL)
+    {
+        //Interaction1
+        //When btn_PRNDL clicked call virtual function
+        //Call change_PRNDLvalue
+        change_PRNDLvalue();
+    }
 }
