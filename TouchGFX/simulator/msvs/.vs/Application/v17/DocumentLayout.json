@@ -1,0 +1,132 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\simulator\\msvs\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3C47683C-0505-487F-A1FD-75B8490BF72C}|Application.vcxproj|D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\src\\screen1_screen\\Screen1View.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3C47683C-0505-487F-A1FD-75B8490BF72C}|Application.vcxproj|D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\src\\model\\Model.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3C47683C-0505-487F-A1FD-75B8490BF72C}|Application.vcxproj|D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\src\\screen1_screen\\Screen1Presenter.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3C47683C-0505-487F-A1FD-75B8490BF72C}|Application.vcxproj|D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\include\\gui\\model\\Model.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3C47683C-0505-487F-A1FD-75B8490BF72C}|Application.vcxproj|D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\include\\gui\\screen1_screen\\Screen1Presenter.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3C47683C-0505-487F-A1FD-75B8490BF72C}|Application.vcxproj|D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\include\\gui\\screen1_screen\\Screen1View.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3C47683C-0505-487F-A1FD-75B8490BF72C}|Application.vcxproj|D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\include\\gui\\model\\ModelListener.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Screen1Presenter.cpp",
+              "DocumentMoniker": "D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\src\\screen1_screen\\Screen1Presenter.cpp",
+              "RelativeDocumentMoniker": "..\\..\\gui\\src\\screen1_screen\\Screen1Presenter.cpp",
+              "ToolTip": "D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\src\\screen1_screen\\Screen1Presenter.cpp",
+              "RelativeToolTip": "..\\..\\gui\\src\\screen1_screen\\Screen1Presenter.cpp",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAAABoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-08-15T03:39:58.777Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Screen1View.hpp",
+              "DocumentMoniker": "D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\include\\gui\\screen1_screen\\Screen1View.hpp",
+              "RelativeDocumentMoniker": "..\\..\\gui\\include\\gui\\screen1_screen\\Screen1View.hpp",
+              "ToolTip": "D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\include\\gui\\screen1_screen\\Screen1View.hpp",
+              "RelativeToolTip": "..\\..\\gui\\include\\gui\\screen1_screen\\Screen1View.hpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-08-16T11:47:55.038Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Screen1View.cpp",
+              "DocumentMoniker": "D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\src\\screen1_screen\\Screen1View.cpp",
+              "RelativeDocumentMoniker": "..\\..\\gui\\src\\screen1_screen\\Screen1View.cpp",
+              "ToolTip": "D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\src\\screen1_screen\\Screen1View.cpp",
+              "RelativeToolTip": "..\\..\\gui\\src\\screen1_screen\\Screen1View.cpp",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABoAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-08-15T02:58:59.495Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Model.cpp",
+              "DocumentMoniker": "D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\src\\model\\Model.cpp",
+              "RelativeDocumentMoniker": "..\\..\\gui\\src\\model\\Model.cpp",
+              "ToolTip": "D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\src\\model\\Model.cpp",
+              "RelativeToolTip": "..\\..\\gui\\src\\model\\Model.cpp",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAAABYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-08-15T02:59:07.994Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Screen1Presenter.hpp",
+              "DocumentMoniker": "D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\include\\gui\\screen1_screen\\Screen1Presenter.hpp",
+              "RelativeDocumentMoniker": "..\\..\\gui\\include\\gui\\screen1_screen\\Screen1Presenter.hpp",
+              "ToolTip": "D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\include\\gui\\screen1_screen\\Screen1Presenter.hpp",
+              "RelativeToolTip": "..\\..\\gui\\include\\gui\\screen1_screen\\Screen1Presenter.hpp",
+              "ViewState": "AQIAABUAAAAAAAAAAAAAAB8AAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-08-15T03:18:13.33Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Model.hpp",
+              "DocumentMoniker": "D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\include\\gui\\model\\Model.hpp",
+              "RelativeDocumentMoniker": "..\\..\\gui\\include\\gui\\model\\Model.hpp",
+              "ToolTip": "D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\include\\gui\\model\\Model.hpp",
+              "RelativeToolTip": "..\\..\\gui\\include\\gui\\model\\Model.hpp",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAAABIAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-08-15T03:38:36.805Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ModelListener.hpp",
+              "DocumentMoniker": "D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\include\\gui\\model\\ModelListener.hpp",
+              "RelativeDocumentMoniker": "..\\..\\gui\\include\\gui\\model\\ModelListener.hpp",
+              "ToolTip": "D:\\Repos\\Brainiac\\Brainiac\\TouchGFX\\gui\\include\\gui\\model\\ModelListener.hpp",
+              "RelativeToolTip": "..\\..\\gui\\include\\gui\\model\\ModelListener.hpp",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAwwBEAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-08-15T05:00:18.835Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

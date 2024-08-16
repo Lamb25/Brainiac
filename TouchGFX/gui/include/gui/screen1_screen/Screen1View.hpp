@@ -11,6 +11,8 @@ public:
     virtual ~Screen1View() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+    virtual void change_PRNDLvalue();
+    void new_PRNDLvalue(char newPRNDL);
 protected:
 };
 

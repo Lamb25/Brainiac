@@ -1,5 +1,6 @@
 #ifndef MODEL_HPP
 #define MODEL_HPP
+#include <cstdint>
 
 class ModelListener;
 
@@ -14,8 +15,14 @@ public:
     }
 
     void tick();
+    void set_PRNDLvalue();
+    char get_PRNDLvalue();
+    
 protected:
     ModelListener* modelListener;
+private:
+    const char *prndl_values = "PRNDL";
+    char prndl;
 };
 
 #endif // MODEL_HPP

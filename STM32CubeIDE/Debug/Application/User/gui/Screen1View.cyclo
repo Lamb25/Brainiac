@@ -6,3 +6,4 @@ D:/Repos/Brainiac/Brainiac/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:13:6:
 ../../TouchGFX/gui/include/gui/screen1_screen/Screen1View.hpp:11:13:virtual Screen1View::~Screen1View()	1
 D:/Repos/Brainiac/Brainiac/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:3:1:Screen1View::Screen1View()	1
 D:/Repos/Brainiac/Brainiac/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:8:6:virtual void Screen1View::setupScreen()	1
+D:/Repos/Brainiac/Brainiac/TouchGFX/gui/src/screen1_screen/Screen1View.cpp:18:6:virtual void Screen1View::set_PRNDLvalue()	1

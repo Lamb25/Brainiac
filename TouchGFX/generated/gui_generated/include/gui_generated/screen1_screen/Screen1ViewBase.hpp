@@ -11,6 +11,8 @@
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/Gauge.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565Bitmap.hpp>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
+#include <touchgfx/containers/buttons/Buttons.hpp>
 
 class Screen1ViewBase : public touchgfx::View<Screen1Presenter>
 {
@@ -18,6 +20,14 @@ public:
     Screen1ViewBase();
     virtual ~Screen1ViewBase();
     virtual void setupScreen();
+
+    /*
+     * Virtual Action Handlers
+     */
+    virtual void change_PRNDLvalue()
+    {
+        // Override and implement this function in Screen1
+    }
 
 protected:
     FrontendApplication& application() {
@@ -28,11 +38,19 @@ protected:
      * Member Declarations
      */
     touchgfx::Box __background;
-    touchgfx::Image image1;
-    touchgfx::Gauge gau_speedo;
-    touchgfx::PainterRGB565Bitmap gau_speedoPainter;
-    touchgfx::Gauge gau_tacdo;
-    touchgfx::PainterRGB565Bitmap gau_tacdoPainter;
+    touchgfx::Image font_Screen1;
+    touchgfx::Gauge gauge_taco;
+    touchgfx::PainterRGB565Bitmap gauge_tacoPainter;
+    touchgfx::Gauge gauge_speedo;
+    touchgfx::PainterRGB565Bitmap gauge_speedoPainter;
+    touchgfx::TextAreaWithOneWildcard txt_PRNDL;
+    touchgfx::BoxWithBorderButtonStyle< touchgfx::ClickButtonTrigger >  btn_PRNDL;
+
+    /*
+     * Wildcard Buffers
+     */
+    static const uint16_t TXT_PRNDL_SIZE = 2;
+    touchgfx::Unicode::UnicodeChar txt_PRNDLBuffer[TXT_PRNDL_SIZE];
 
 private:
 
@@ -41,6 +59,16 @@ private:
      */
     static const uint32_t CANVAS_BUFFER_SIZE = 7200;
     uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
+
+    /*
+     * Callback Declarations
+     */
+    touchgfx::Callback<Screen1ViewBase, const touchgfx::AbstractButtonContainer&> flexButtonCallback;
+
+    /*
+     * Callback Handler Declarations
+     */
+    void flexButtonCallbackHandler(const touchgfx::AbstractButtonContainer& src);
 
 };
 
