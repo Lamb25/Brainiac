@@ -55,7 +55,7 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+#define SHORT_DELAY   100
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -117,7 +117,8 @@ extern void TouchGFX_Task(void *argument);
 extern void videoTaskFunc(void *argument);
 
 /* USER CODE BEGIN PFP */
-
+void UART_Message(const uint8_t* data, uint8_t size);
+uint32_t ADC3_GetValue();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -773,7 +774,22 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void UART_Message(const uint8_t* data, uint8_t size)
+{
+  	HAL_GPIO_TogglePin(GPIOI, GPIO_PIN_1);
+  	HAL_UART_Transmit(&huart1, data, size-1, SHORT_DELAY);
+  	vTaskDelay(SHORT_DELAY);
+}
 
+uint32_t ADC3_GetValue()
+{
+  	HAL_ADC_Start(&hadc3);
+  	HAL_ADC_PollForConversion(&hadc3, SHORT_DELAY);
+  	uint32_t adc_value = HAL_ADC_GetValue(&hadc3);
+  	HAL_ADC_Stop(&hadc3);
+
+    return adc_value;
+}
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -790,26 +806,20 @@ void StartDefaultTask(void *argument)
 
   for(;;)
   {
-	  HAL_GPIO_TogglePin(GPIOI, GPIO_PIN_1);
-	  uint8_t data[] = "Read velocimeter value: ";
+	  const uint8_t data[] = "Read velocimeter value: ";
 	  uint8_t size = sizeof(data);
-	  HAL_UART_Transmit(&huart1, data, size-1, 1000);
-	  vTaskDelay(100);
+	  UART_Message(&data, size);
 
-	  uint32_t adc_value = 0;
-	  HAL_ADC_Start(&hadc3);
-	  HAL_ADC_PollForConversion(&hadc3, 100);
-	  adc_value = HAL_ADC_GetValue(&hadc3);
-	  HAL_ADC_Stop(&hadc3);
-
+	  uint32_t adc_value = ADC3_GetValue();
+	  
 	  uint8_t s[4];
 	  sprintf(s,"%d",adc_value);
 	  HAL_UART_Transmit(&huart1, s, 4, 1000);
 	  vTaskDelay(100);
 
 	  uint8_t cr[] = "\n";
-	  size = sizeof(cr);
-	  HAL_UART_Transmit(&huart1, cr, size-1, 1000);
+	  uint8_t size_cr = sizeof(cr);
+	  HAL_UART_Transmit(&huart1, cr, size_cr-1, 1000);
 	  vTaskDelay(100);
   }
   /* USER CODE END 5 */
