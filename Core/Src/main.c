@@ -791,14 +791,10 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
 	  HAL_GPIO_TogglePin(GPIOI, GPIO_PIN_1);
-	  uint8_t data[] = "Read velocimeter value\n";
+	  uint8_t data[] = "Read velocimeter value: ";
 	  uint8_t size = sizeof(data);
-	  HAL_UART_Transmit(&huart1, data, size, 1000);
+	  HAL_UART_Transmit(&huart1, data, size-1, 1000);
 	  vTaskDelay(100);
-
-	  /*x +=48;
-	  HAL_UART_Transmit(&huart1, x, 1, 1000);
-	  osDelay(100);*/
 
 	  uint32_t adc_value = 0;
 	  HAL_ADC_Start(&hadc3);
@@ -806,14 +802,14 @@ void StartDefaultTask(void *argument)
 	  adc_value = HAL_ADC_GetValue(&hadc3);
 	  HAL_ADC_Stop(&hadc3);
 
-
-	  uint8_t data2[] = "adc_value:\n";
-	  uint8_t size2 = sizeof(data2);
 	  uint8_t s[4];
 	  sprintf(s,"%d",adc_value);
-	  HAL_UART_Transmit(&huart1, data2, size2, 1000);
-	  osDelay(100);
 	  HAL_UART_Transmit(&huart1, s, 4, 1000);
+	  vTaskDelay(100);
+
+	  uint8_t cr[] = "\n";
+	  size = sizeof(cr);
+	  HAL_UART_Transmit(&huart1, cr, size-1, 1000);
 	  vTaskDelay(100);
   }
   /* USER CODE END 5 */
