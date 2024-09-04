@@ -55,7 +55,8 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-#define SHORT_DELAY   100
+#define SHORT_DELAY        100
+#define ADC_12BIT_LENGHT   4
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -777,7 +778,7 @@ static void MX_GPIO_Init(void)
 void UART_Message(const uint8_t* data, uint8_t size)
 {
   	HAL_GPIO_TogglePin(GPIOI, GPIO_PIN_1);
-  	HAL_UART_Transmit(&huart1, data, size-1, SHORT_DELAY);
+    HAL_UART_Transmit(&huart1, data, size, SHORT_DELAY);
   	vTaskDelay(SHORT_DELAY);
 }
 
@@ -806,21 +807,16 @@ void StartDefaultTask(void *argument)
 
   for(;;)
   {
-	  const uint8_t data[] = "Read velocimeter value: ";
+	  const uint8_t data[] = "\nRead velocimeter value: \n";
 	  uint8_t size = sizeof(data);
 	  UART_Message(&data, size);
 
 	  uint32_t adc_value = ADC3_GetValue();
-	  
-	  uint8_t s[4];
-	  sprintf(s,"%d",adc_value);
-	  HAL_UART_Transmit(&huart1, s, 4, 1000);
-	  vTaskDelay(100);
 
-	  uint8_t cr[] = "\n";
-	  uint8_t size_cr = sizeof(cr);
-	  HAL_UART_Transmit(&huart1, cr, size_cr-1, 1000);
-	  vTaskDelay(100);
+	  uint8_t velocimeter[ADC_12BIT_LENGHT];
+	  sprintf(velocimeter,"%u",adc_value);
+	  size = sizeof(velocimeter);
+	  UART_Message(&velocimeter, size);
   }
   /* USER CODE END 5 */
 }
