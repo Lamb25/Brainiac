@@ -118,6 +118,7 @@ extern void TouchGFX_Task(void *argument);
 extern void videoTaskFunc(void *argument);
 
 /* USER CODE BEGIN PFP */
+void getVelocimeter();
 void UART_Message(const uint8_t* data, uint8_t size);
 uint32_t ADC3_GetValue();
 /* USER CODE END PFP */
@@ -775,6 +776,19 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void getVelocimeter()
+{
+  const uint8_t data[] = "\nVelocimeter value: \n";
+	uint8_t size = sizeof(data);
+	UART_Message(&data, size);
+
+	uint32_t adc_value = ADC3_GetValue();
+	uint8_t velocimeter[ADC_12BIT_LENGHT];
+	sprintf(velocimeter,"%u",adc_value);
+	size = sizeof(velocimeter);
+	UART_Message(&velocimeter, size);
+}
+
 void UART_Message(const uint8_t* data, uint8_t size)
 {
   	HAL_GPIO_TogglePin(GPIOI, GPIO_PIN_1);
@@ -807,16 +821,7 @@ void StartDefaultTask(void *argument)
 
   for(;;)
   {
-	  const uint8_t data[] = "\nRead velocimeter value: \n";
-	  uint8_t size = sizeof(data);
-	  UART_Message(&data, size);
-
-	  uint32_t adc_value = ADC3_GetValue();
-
-	  uint8_t velocimeter[ADC_12BIT_LENGHT];
-	  sprintf(velocimeter,"%u",adc_value);
-	  size = sizeof(velocimeter);
-	  UART_Message(&velocimeter, size);
+	  getVelocimeter();
   }
   /* USER CODE END 5 */
 }
