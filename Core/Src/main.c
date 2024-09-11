@@ -55,8 +55,10 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-#define SHORT_DELAY        100
-#define ADC_12BIT_LENGHT   4
+#define SHORT_DELAY        	100
+#define ADC_12BIT_LENGHT   	4
+#define ADC_MAX_VALUE   	4095
+#define VEL_MAX_VALUE   	100
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -97,6 +99,11 @@ const osThreadAttr_t videoTask_attributes = {
   .stack_size = 1000 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
+/* Definitions for adcQueue */
+osMessageQueueId_t adcQueueHandle;
+const osMessageQueueAttr_t adcQueue_attributes = {
+  .name = "adcQueue"
+};
 /* USER CODE BEGIN PV */
 static FMC_SDRAM_CommandTypeDef Command;
 /* USER CODE END PV */
@@ -120,6 +127,7 @@ extern void videoTaskFunc(void *argument);
 /* USER CODE BEGIN PFP */
 void getVelocimeter();
 void UART_Message(const uint8_t* data, uint8_t size);
+uint8_t map(uint16_t x, uint8_t in_min, uint16_t in_max, uint8_t out_min, uint8_t out_max);
 uint32_t ADC3_GetValue();
 /* USER CODE END PFP */
 
@@ -199,6 +207,10 @@ int main(void)
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
 
+  /* Create the queue(s) */
+  /* creation of adcQueue */
+  adcQueueHandle = osMessageQueueNew (1, sizeof(uint16_t), &adcQueue_attributes);
+
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
@@ -234,10 +246,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	/*int adc_value=0;
-    HAL_ADC_PollForConversion(&hadc1, 1);
-	adc_value = HAL_ADC_GetValue(&hadc1);
-	HAL_Delay(100);*/
   }
   /* USER CODE END 3 */
 }
@@ -778,15 +786,23 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void getVelocimeter()
 {
-  const uint8_t data[] = "\nVelocimeter value: \n";
+	const uint8_t data[] = "\nVelocimeter value: ";
 	uint8_t size = sizeof(data);
 	UART_Message(&data, size);
 
-	uint32_t adc_value = ADC3_GetValue();
+	uint16_t adc_value = ADC3_GetValue();
+	uint8_t converted_val = map(adc_value, 0, ADC_MAX_VALUE, 0, VEL_MAX_VALUE);
 	uint8_t velocimeter[ADC_12BIT_LENGHT];
-	sprintf(velocimeter,"%u",adc_value);
+	sprintf(velocimeter,"%u",converted_val);
 	size = sizeof(velocimeter);
 	UART_Message(&velocimeter, size);
+
+	osMessageQueuePut(adcQueueHandle, &converted_val, 0, 0);
+}
+
+uint8_t map(uint16_t x, uint8_t in_min, uint16_t in_max, uint8_t out_min, uint8_t out_max) 
+{
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
 void UART_Message(const uint8_t* data, uint8_t size)

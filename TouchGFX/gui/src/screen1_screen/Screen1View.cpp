@@ -46,3 +46,8 @@ void Screen1View::dec_Odometer()
     txt_Odo.resizeToCurrentText();
     txt_Odo.invalidate();
 }
+
+void Screen1View::setVelocimeter(uint8_t velocimenter_value)
+{
+    gauge_speedo.setValue(velocimenter_value);
+}
