@@ -9,6 +9,7 @@ public:
     ModelListener() : model(0) {}
     
     virtual ~ModelListener() {}
+    virtual void setVelocimeter(uint8_t velocimenter_value) {}
 
     void bind(Model* m)
     {

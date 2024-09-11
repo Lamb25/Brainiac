@@ -25,6 +25,7 @@ public:
     
 protected:
     ModelListener* modelListener;
+    uint8_t velocimenter_value;
 private:
     const char *prndl_values = "PRNDL";
     const size_t len = strlen(prndl_values);

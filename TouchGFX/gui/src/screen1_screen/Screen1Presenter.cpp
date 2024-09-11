@@ -46,3 +46,8 @@ void Screen1Presenter::dec_Odovalue()
 {
     model->dec_Odovalue();
 }
+
+void Screen1Presenter::setVelocimeter(uint8_t velocimenter_value)
+{
+    view.setVelocimeter(velocimenter_value);
+}
