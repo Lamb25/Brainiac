@@ -128,7 +128,9 @@ extern void TouchGFX_Task(void *argument);
 extern void videoTaskFunc(void *argument);
 
 /* USER CODE BEGIN PFP */
-void getVelocimeter();
+void readSpeed();
+void setSpeed(uint8_t newSpeed);
+uint8_t getSpeed();
 void UART_Message(const uint8_t* data, uint8_t size);
 uint8_t map(uint16_t x, uint8_t in_min, uint16_t in_max, uint8_t out_min, uint8_t out_max);
 uint32_t ADC3_GetValue();
@@ -136,7 +138,7 @@ uint32_t ADC3_GetValue();
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+uint8_t speed;
 /* USER CODE END 0 */
 
 /**
@@ -847,20 +849,32 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void getVelocimeter()
+void readSpeed()
 {
-	const uint8_t data[] = "\nVelocimeter value: ";
+	const uint8_t data[] = "\nSpeedometer value: ";
 	uint8_t size = sizeof(data);
 	UART_Message(&data, size);
 
 	uint16_t adc_value = ADC3_GetValue();
 	uint8_t converted_val = map(adc_value, 0, ADC_MAX_VALUE, 0, VEL_MAX_VALUE);
-	uint8_t velocimeter[ADC_12BIT_LENGHT];
-	sprintf(velocimeter,"%u",converted_val);
-	size = sizeof(velocimeter);
-	UART_Message(&velocimeter, size);
+	uint8_t speed[ADC_12BIT_LENGHT];
+	sprintf(speed,"%u",converted_val);
+	size = sizeof(speed);
+	UART_Message(&speed, size);
+
+	setSpeed(converted_val);
 
 	osMessageQueuePut(adcQueueHandle, &converted_val, 0, 0);
+}
+
+void setSpeed(uint8_t newSpeed)
+{
+  speed = newSpeed;
+}
+
+uint8_t getSpeed()
+{
+  return speed;
 }
 
 uint8_t map(uint16_t x, uint8_t in_min, uint16_t in_max, uint8_t out_min, uint8_t out_max) 
@@ -900,10 +914,10 @@ void StartDefaultTask(void *argument)
 
   for(;;)
   {
-	  getVelocimeter();
-
-      TIM2->CCR1 = 50;
-      HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+	  readSpeed();
+    TIM2->CCR1 = getSpeed();
+    //TIM2->CCR1 = 50;
+    HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   }
   /* USER CODE END 5 */
 }
