@@ -21,7 +21,7 @@ void Model::tick()
 	//Get Data from ADC Queue
 	if (osMessageQueueGet(adcQueueHandle, &velocimenter_value, 0U, 0) == osOK)
 	{
-		modelListener->setVelocimeter(velocimenter_value);  // send data to presenter
+		modelListener->setSpeedometer(velocimenter_value);  // send data to presenter
 	}
 #endif
 }

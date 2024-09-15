@@ -74,6 +74,8 @@ LTDC_HandleTypeDef hltdc;
 
 QSPI_HandleTypeDef hqspi;
 
+TIM_HandleTypeDef htim2;
+
 UART_HandleTypeDef huart1;
 
 SDRAM_HandleTypeDef hsdram1;
@@ -120,12 +122,16 @@ static void MX_LTDC_Init(void);
 static void MX_QUADSPI_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_ADC3_Init(void);
+static void MX_TIM2_Init(void);
 void StartDefaultTask(void *argument);
 extern void TouchGFX_Task(void *argument);
 extern void videoTaskFunc(void *argument);
 
 /* USER CODE BEGIN PFP */
-void getVelocimeter();
+void readSpeed();
+void setSpeed(uint8_t newSpeed);
+uint8_t getSpeed();
+void setPWM();
 void UART_Message(const uint8_t* data, uint8_t size);
 uint8_t map(uint16_t x, uint8_t in_min, uint16_t in_max, uint8_t out_min, uint8_t out_max);
 uint32_t ADC3_GetValue();
@@ -133,7 +139,7 @@ uint32_t ADC3_GetValue();
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+uint8_t speed;
 /* USER CODE END 0 */
 
 /**
@@ -185,6 +191,7 @@ int main(void)
   MX_LIBJPEG_Init();
   MX_USART1_UART_Init();
   MX_ADC3_Init();
+  MX_TIM2_Init();
   MX_TouchGFX_Init();
   /* Call PreOsInit function */
   MX_TouchGFX_PreOSInit();
@@ -571,6 +578,65 @@ static void MX_QUADSPI_Init(void)
 }
 
 /**
+  * @brief TIM2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM2_Init(void)
+{
+
+  /* USER CODE BEGIN TIM2_Init 0 */
+
+  /* USER CODE END TIM2_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_OC_InitTypeDef sConfigOC = {0};
+
+  /* USER CODE BEGIN TIM2_Init 1 */
+
+  /* USER CODE END TIM2_Init 1 */
+  htim2.Instance = TIM2;
+  htim2.Init.Prescaler = 108-1;
+  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim2.Init.Period = 100-1;
+  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_Init(&htim2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM2_Init 2 */
+
+  /* USER CODE END TIM2_Init 2 */
+  HAL_TIM_MspPostInit(&htim2);
+
+}
+
+/**
   * @brief USART1 Initialization Function
   * @param None
   * @retval None
@@ -784,20 +850,32 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void getVelocimeter()
+void readSpeed()
 {
-	const uint8_t data[] = "\nVelocimeter value: ";
+	const uint8_t data[] = "\nSpeedometer value: ";
 	uint8_t size = sizeof(data);
 	UART_Message(&data, size);
 
 	uint16_t adc_value = ADC3_GetValue();
 	uint8_t converted_val = map(adc_value, 0, ADC_MAX_VALUE, 0, VEL_MAX_VALUE);
-	uint8_t velocimeter[ADC_12BIT_LENGHT];
-	sprintf(velocimeter,"%u",converted_val);
-	size = sizeof(velocimeter);
-	UART_Message(&velocimeter, size);
+	uint8_t speed[ADC_12BIT_LENGHT];
+	sprintf(speed,"%u",converted_val);
+	size = sizeof(speed);
+	UART_Message(&speed, size);
+
+	setSpeed(converted_val);
 
 	osMessageQueuePut(adcQueueHandle, &converted_val, 0, 0);
+}
+
+void setSpeed(uint8_t newSpeed)
+{
+  speed = newSpeed;
+}
+
+uint8_t getSpeed()
+{
+  return speed;
 }
 
 uint8_t map(uint16_t x, uint8_t in_min, uint16_t in_max, uint8_t out_min, uint8_t out_max) 
@@ -821,6 +899,12 @@ uint32_t ADC3_GetValue()
 
     return adc_value;
 }
+
+void setPWM()
+{
+  TIM2->CCR1 = getSpeed();
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+}
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -837,7 +921,8 @@ void StartDefaultTask(void *argument)
 
   for(;;)
   {
-	  getVelocimeter();
+    readSpeed();
+    setPWM();
   }
   /* USER CODE END 5 */
 }
