@@ -131,6 +131,7 @@ extern void videoTaskFunc(void *argument);
 void readSpeed();
 void setSpeed(uint8_t newSpeed);
 uint8_t getSpeed();
+void setPWM();
 void UART_Message(const uint8_t* data, uint8_t size);
 uint8_t map(uint16_t x, uint8_t in_min, uint16_t in_max, uint8_t out_min, uint8_t out_max);
 uint32_t ADC3_GetValue();
@@ -898,6 +899,12 @@ uint32_t ADC3_GetValue()
 
     return adc_value;
 }
+
+void setPWM()
+{
+  TIM2->CCR1 = getSpeed();
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+}
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -914,10 +921,8 @@ void StartDefaultTask(void *argument)
 
   for(;;)
   {
-	  readSpeed();
-    TIM2->CCR1 = getSpeed();
-    //TIM2->CCR1 = 50;
-    HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+    readSpeed();
+    setPWM();
   }
   /* USER CODE END 5 */
 }
