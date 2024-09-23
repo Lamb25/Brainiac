@@ -75,6 +75,8 @@ LTDC_HandleTypeDef hltdc;
 QSPI_HandleTypeDef hqspi;
 
 TIM_HandleTypeDef htim2;
+TIM_HandleTypeDef htim13;
+TIM_HandleTypeDef htim14;
 
 UART_HandleTypeDef huart1;
 
@@ -123,6 +125,8 @@ static void MX_QUADSPI_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_ADC3_Init(void);
 static void MX_TIM2_Init(void);
+static void MX_TIM13_Init(void);
+static void MX_TIM14_Init(void);
 void StartDefaultTask(void *argument);
 extern void TouchGFX_Task(void *argument);
 extern void videoTaskFunc(void *argument);
@@ -140,6 +144,9 @@ uint32_t ADC3_GetValue();
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 uint8_t speed;
+uint8_t oneRevCounter = 0;
+uint32_t ccr1_oneRevValues[11];
+    
 /* USER CODE END 0 */
 
 /**
@@ -192,6 +199,8 @@ int main(void)
   MX_USART1_UART_Init();
   MX_ADC3_Init();
   MX_TIM2_Init();
+  MX_TIM13_Init();
+  MX_TIM14_Init();
   MX_TouchGFX_Init();
   /* Call PreOsInit function */
   MX_TouchGFX_PreOSInit();
@@ -637,6 +646,96 @@ static void MX_TIM2_Init(void)
 }
 
 /**
+  * @brief TIM13 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM13_Init(void)
+{
+
+  /* USER CODE BEGIN TIM13_Init 0 */
+
+  /* USER CODE END TIM13_Init 0 */
+
+  TIM_IC_InitTypeDef sConfigIC = {0};
+
+  /* USER CODE BEGIN TIM13_Init 1 */
+
+  /* USER CODE END TIM13_Init 1 */
+  htim13.Instance = TIM13;
+  htim13.Init.Prescaler = 0;
+  htim13.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim13.Init.Period = 100-1;
+  htim13.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim13.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim13) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_IC_Init(&htim13) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
+  sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
+  sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
+  sConfigIC.ICFilter = 0;
+  if (HAL_TIM_IC_ConfigChannel(&htim13, &sConfigIC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM13_Init 2 */
+
+  /* USER CODE END TIM13_Init 2 */
+
+}
+
+/**
+  * @brief TIM14 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM14_Init(void)
+{
+
+  /* USER CODE BEGIN TIM14_Init 0 */
+
+  /* USER CODE END TIM14_Init 0 */
+
+  TIM_IC_InitTypeDef sConfigIC = {0};
+
+  /* USER CODE BEGIN TIM14_Init 1 */
+
+  /* USER CODE END TIM14_Init 1 */
+  htim14.Instance = TIM14;
+  htim14.Init.Prescaler = 0;
+  htim14.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim14.Init.Period = 65535;
+  htim14.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim14.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim14) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_IC_Init(&htim14) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
+  sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
+  sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
+  sConfigIC.ICFilter = 0;
+  if (HAL_TIM_IC_ConfigChannel(&htim14, &sConfigIC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM14_Init 2 */
+
+  /* USER CODE END TIM14_Init 2 */
+
+}
+
+/**
   * @brief USART1 Initialization Function
   * @param None
   * @retval None
@@ -858,10 +957,10 @@ void readSpeed()
 
 	uint16_t adc_value = ADC3_GetValue();
 	uint8_t converted_val = map(adc_value, 0, ADC_MAX_VALUE, 0, VEL_MAX_VALUE);
-	uint8_t speed[ADC_12BIT_LENGHT];
-	sprintf(speed,"%u",converted_val);
-	size = sizeof(speed);
-	UART_Message(&speed, size);
+	uint8_t s[ADC_12BIT_LENGHT];
+	sprintf(s,"%u",converted_val);
+	size = sizeof(s);
+	UART_Message(&s, size);
 
 	setSpeed(converted_val);
 
@@ -884,6 +983,13 @@ uint8_t map(uint16_t x, uint8_t in_min, uint16_t in_max, uint8_t out_min, uint8_
 }
 
 void UART_Message(const uint8_t* data, uint8_t size)
+{
+  	HAL_GPIO_TogglePin(GPIOI, GPIO_PIN_1);
+    HAL_UART_Transmit(&huart1, data, size, SHORT_DELAY);
+  	vTaskDelay(SHORT_DELAY);
+}
+
+void UART_Message32(const uint32_t* data, uint8_t size)
 {
   	HAL_GPIO_TogglePin(GPIOI, GPIO_PIN_1);
     HAL_UART_Transmit(&huart1, data, size, SHORT_DELAY);
@@ -921,8 +1027,46 @@ void StartDefaultTask(void *argument)
 
   for(;;)
   {
-    readSpeed();
-    setPWM();
+    //readSpeed();
+    //setPWM();
+
+    HAL_TIM_IC_Start(&htim14, TIM_CHANNEL_1);
+    
+    if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_9) == GPIO_PIN_SET)
+    {
+        uint32_t ccr1_value = __HAL_TIM_GET_COMPARE(&htim14, TIM_CHANNEL_1);
+        const uint8_t data[] = "\nRead Capture value: ";
+        uint8_t size = sizeof(data);
+        UART_Message(&data, size);
+
+        uint32_t v2[ADC_12BIT_LENGHT];
+        sprintf(v2,"%u",ccr1_value);
+        uint32_t size32 = sizeof(v2);
+        UART_Message32(&v2, size32);
+
+        
+        const uint8_t d3[] = "\nccr1 new value: ";
+        uint8_t s3 = sizeof(d3);
+        UART_Message(&d3, s3);
+        
+        ccr1_oneRevValues[oneRevCounter] = ccr1_value;
+        uint32_t v4[ADC_12BIT_LENGHT];
+        sprintf(v4,"%u",ccr1_oneRevValues[oneRevCounter]);
+        uint32_t s4 = sizeof(v4);
+        UART_Message32(&v4, s4);
+        
+
+        const uint8_t d5[] = "\ncounter for one rev: ";
+        uint8_t s5 = sizeof(d5);
+        UART_Message(&d5, s5);
+
+        oneRevCounter++;
+        uint8_t v6[ADC_12BIT_LENGHT];
+        sprintf(v6,"%u",oneRevCounter);
+        uint8_t s6 = sizeof(v6);
+        UART_Message(&v6, s6);
+    }
+
   }
   /* USER CODE END 5 */
 }
