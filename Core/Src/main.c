@@ -140,7 +140,7 @@ void setSpeed(uint8_t newSpeed);
 void setPWM();
 void UART_Message(const uint8_t* data, uint8_t size);
 void read_TIM14CCR1();
-void counterForOneRev(uint32_t* ccr1_value);
+void counterForOneRev(uint32_t ccr1_value);
 void countOfRevs();
 uint8_t getSpeed();
 uint8_t map(uint16_t x, uint8_t in_min, uint16_t in_max, uint8_t out_min, uint8_t out_max);
@@ -1031,12 +1031,12 @@ void read_TIM14CCR1()
   size = strlen(str_ccr1);
   UART_Message(&str_ccr1, size);
 
-  counterForOneRev(&ccr1_value);
+  counterForOneRev(ccr1_value);
 }
 
-void counterForOneRev(uint32_t* ccr1_value)
+void counterForOneRev(uint32_t ccr1_value)
 {
-  ccr1_oneRevValues[oneRevCounter] = *ccr1_value;
+  ccr1_oneRevValues[oneRevCounter] = ccr1_value;
   oneRevCounter++;
   const char str[] = "\nCounter for one rev (11): ";
   size_t size = strlen(str);
@@ -1049,7 +1049,7 @@ void counterForOneRev(uint32_t* ccr1_value)
 
   if(oneRevCounter == COUNT_FOR_REV)
   {
-    //countOfRevs();
+    countOfRevs();
     oneRevCounter = 0;
   }
 }
@@ -1061,10 +1061,10 @@ void countOfRevs()
   size_t size = strlen(str);
   UART_Message(&str, size);
 
-  char str_revsCounter[CCR1_LENGHT];
+  /*char str_revsCounter[CCR1_LENGHT];
   sprintf(str_revsCounter,"%lu",revsCounter);
   size = strlen(str_revsCounter);
-  UART_Message(&str_revsCounter, size);
+  UART_Message(&str_revsCounter, size);*/
 }
 
 /* USER CODE END 4 */
