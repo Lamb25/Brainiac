@@ -26,6 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stm32746g_discovery_qspi.h>
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -57,8 +58,10 @@
 /* USER CODE BEGIN PM */
 #define SHORT_DELAY        	100
 #define ADC_12BIT_LENGHT   	4
-#define ADC_MAX_VALUE   	4095
-#define VEL_MAX_VALUE   	100
+#define ADC_MAX_VALUE   	  4095
+#define VEL_MAX_VALUE   	  100
+#define CCR1_LENGHT         5
+#define COUNT_FOR_REV       11
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -134,9 +137,12 @@ extern void videoTaskFunc(void *argument);
 /* USER CODE BEGIN PFP */
 void readSpeed();
 void setSpeed(uint8_t newSpeed);
-uint8_t getSpeed();
 void setPWM();
 void UART_Message(const uint8_t* data, uint8_t size);
+void read_TIM14CCR1();
+void counterForOneRev(uint32_t* ccr1_value);
+void countOfRevs();
+uint8_t getSpeed();
 uint8_t map(uint16_t x, uint8_t in_min, uint16_t in_max, uint8_t out_min, uint8_t out_max);
 uint32_t ADC3_GetValue();
 /* USER CODE END PFP */
@@ -145,7 +151,8 @@ uint32_t ADC3_GetValue();
 /* USER CODE BEGIN 0 */
 uint8_t speed;
 uint8_t oneRevCounter = 0;
-uint32_t ccr1_oneRevValues[11];
+uint32_t revsCounter = 0;
+uint32_t ccr1_oneRevValues[COUNT_FOR_REV];
     
 /* USER CODE END 0 */
 
@@ -1011,6 +1018,55 @@ void setPWM()
   TIM2->CCR1 = getSpeed();
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
 }
+
+void read_TIM14CCR1()
+{
+  uint32_t ccr1_value = __HAL_TIM_GET_COMPARE(&htim14, TIM_CHANNEL_1);
+  const char str[] = "\nRead TIM14 CCR1 value: ";
+  size_t size = strlen(str);
+  UART_Message(&str, size);
+
+  char str_ccr1[CCR1_LENGHT];
+  sprintf(str_ccr1,"%lu",ccr1_value);
+  size = strlen(str_ccr1);
+  UART_Message(&str_ccr1, size);
+
+  counterForOneRev(&ccr1_value);
+}
+
+void counterForOneRev(uint32_t* ccr1_value)
+{
+  ccr1_oneRevValues[oneRevCounter] = *ccr1_value;
+  oneRevCounter++;
+  const char str[] = "\nCounter for one rev (11): ";
+  size_t size = strlen(str);
+  UART_Message(&str, size);
+
+  char str_counter[CCR1_LENGHT];
+  sprintf(str_counter,"%d",oneRevCounter);
+  size = strlen(str_counter);
+  UART_Message(&str_counter, size);
+
+  if(oneRevCounter == COUNT_FOR_REV)
+  {
+    //countOfRevs();
+    oneRevCounter = 0;
+  }
+}
+
+void countOfRevs()
+{
+  revsCounter++;
+  const char str[] = "\nCounter of revs: ";
+  size_t size = strlen(str);
+  UART_Message(&str, size);
+
+  char str_revsCounter[CCR1_LENGHT];
+  sprintf(str_revsCounter,"%lu",revsCounter);
+  size = strlen(str_revsCounter);
+  UART_Message(&str_revsCounter, size);
+}
+
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -1027,14 +1083,14 @@ void StartDefaultTask(void *argument)
 
   for(;;)
   {
-    //readSpeed();
+     //readSpeed();
     //setPWM();
 
     HAL_TIM_IC_Start(&htim14, TIM_CHANNEL_1);
     
     if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_9) == GPIO_PIN_SET)
     {
-        uint32_t ccr1_value = __HAL_TIM_GET_COMPARE(&htim14, TIM_CHANNEL_1);
+        /*uint32_t ccr1_value = __HAL_TIM_GET_COMPARE(&htim14, TIM_CHANNEL_1);
         const uint8_t data[] = "\nRead Capture value: ";
         uint8_t size = sizeof(data);
         UART_Message(&data, size);
@@ -1047,9 +1103,11 @@ void StartDefaultTask(void *argument)
         
         const uint8_t d3[] = "\nccr1 new value: ";
         uint8_t s3 = sizeof(d3);
-        UART_Message(&d3, s3);
+        UART_Message(&d3, s3);*/
+
+        read_TIM14CCR1();
         
-        ccr1_oneRevValues[oneRevCounter] = ccr1_value;
+        /*ccr1_oneRevValues[oneRevCounter] = ccr1_value;
         uint32_t v4[ADC_12BIT_LENGHT];
         sprintf(v4,"%u",ccr1_oneRevValues[oneRevCounter]);
         uint32_t s4 = sizeof(v4);
@@ -1064,7 +1122,7 @@ void StartDefaultTask(void *argument)
         uint8_t v6[ADC_12BIT_LENGHT];
         sprintf(v6,"%u",oneRevCounter);
         uint8_t s6 = sizeof(v6);
-        UART_Message(&v6, s6);
+        UART_Message(&v6, s6);*/
     }
 
   }
