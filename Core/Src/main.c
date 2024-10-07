@@ -61,7 +61,7 @@
 #define ADC_MAX_VALUE   	  4095
 #define VEL_MAX_VALUE   	  100
 #define CCR1_LENGHT         5
-#define COUNT_FOR_REV       11
+#define COUNT_FOR_REV       5
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -138,20 +138,23 @@ extern void videoTaskFunc(void *argument);
 void readSpeed();
 void setSpeed(uint8_t newSpeed);
 void setPWM();
-void UART_Message(const uint8_t* data, uint8_t size);
-void read_TIM14CCR1();
-void counterForOneRev(uint32_t ccr1_value);
-void countOfRevs();
+//void UART_Message(const uint8_t* data, uint8_t size);
+void UART_Message(const uint8_t* data);
 uint8_t getSpeed();
 uint8_t map(uint16_t x, uint8_t in_min, uint16_t in_max, uint8_t out_min, uint8_t out_max);
 uint32_t ADC3_GetValue();
+void read_TIM14CCR1();
+void counterForOneRev(uint32_t ccr1_value);
+void incrementRev();
+void getRevTime();
+void calculateRPM();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 uint8_t speed;
 uint8_t oneRevCounter = 0;
-uint32_t revsCounter = 0;
+uint8_t revsCounter = 0;
 uint32_t ccr1_oneRevValues[COUNT_FOR_REV];
     
 /* USER CODE END 0 */
@@ -959,15 +962,13 @@ static void MX_GPIO_Init(void)
 void readSpeed()
 {
 	const uint8_t data[] = "\nSpeedometer value: ";
-	uint8_t size = sizeof(data);
-	UART_Message(&data, size);
+	UART_Message(&data);
 
 	uint16_t adc_value = ADC3_GetValue();
 	uint8_t converted_val = map(adc_value, 0, ADC_MAX_VALUE, 0, VEL_MAX_VALUE);
 	uint8_t s[ADC_12BIT_LENGHT];
 	sprintf(s,"%u",converted_val);
-	size = sizeof(s);
-	UART_Message(&s, size);
+	UART_Message(&s);
 
 	setSpeed(converted_val);
 
@@ -989,9 +990,17 @@ uint8_t map(uint16_t x, uint8_t in_min, uint16_t in_max, uint8_t out_min, uint8_
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
-void UART_Message(const uint8_t* data, uint8_t size)
+// void UART_Message(const uint8_t* data, uint8_t size)
+// {
+//   	HAL_GPIO_TogglePin(GPIOI, GPIO_PIN_1);
+//     HAL_UART_Transmit(&huart1, data, size, SHORT_DELAY);
+//   	vTaskDelay(SHORT_DELAY);
+// }
+
+void UART_Message(const uint8_t* data)
 {
   	HAL_GPIO_TogglePin(GPIOI, GPIO_PIN_1);
+    size_t size = strlen(data);
     HAL_UART_Transmit(&huart1, data, size, SHORT_DELAY);
   	vTaskDelay(SHORT_DELAY);
 }
@@ -1022,14 +1031,12 @@ void setPWM()
 void read_TIM14CCR1()
 {
   uint32_t ccr1_value = __HAL_TIM_GET_COMPARE(&htim14, TIM_CHANNEL_1);
-  const char str[] = "\nRead TIM14 CCR1 value: ";
-  size_t size = strlen(str);
-  UART_Message(&str, size);
+  const uint8_t str[] = "\nRead TIM14 CCR1 value: ";
+  UART_Message(&str);
 
-  char str_ccr1[CCR1_LENGHT];
+  uint8_t str_ccr1[CCR1_LENGHT];
   sprintf(str_ccr1,"%lu",ccr1_value);
-  size = strlen(str_ccr1);
-  UART_Message(&str_ccr1, size);
+  UART_Message(&str_ccr1);
 
   counterForOneRev(ccr1_value);
 }
@@ -1038,33 +1045,38 @@ void counterForOneRev(uint32_t ccr1_value)
 {
   ccr1_oneRevValues[oneRevCounter] = ccr1_value;
   oneRevCounter++;
-  const char str[] = "\nCounter for one rev (11): ";
-  size_t size = strlen(str);
-  UART_Message(&str, size);
+  const uint8_t str[] = "\nCounter for one rev (11): ";
+  UART_Message(&str);
 
-  char str_counter[CCR1_LENGHT];
+  uint8_t str_counter[CCR1_LENGHT];
   sprintf(str_counter,"%d",oneRevCounter);
-  size = strlen(str_counter);
-  UART_Message(&str_counter, size);
-
-  if(oneRevCounter == COUNT_FOR_REV)
-  {
-    countOfRevs();
-    oneRevCounter = 0;
-  }
+  UART_Message(&str_counter);
 }
 
-void countOfRevs()
+void incrementRev()
 {
   revsCounter++;
-  const char str[] = "\nCounter of revs: ";
-  size_t size = strlen(str);
-  UART_Message(&str, size);
+  const uint8_t str[] = "\nRevs counter: ";
+  UART_Message(&str);
 
-  /*char str_revsCounter[CCR1_LENGHT];
-  sprintf(str_revsCounter,"%lu",revsCounter);
-  size = strlen(str_revsCounter);
-  UART_Message(&str_revsCounter, size);*/
+  uint8_t str_revsCounter[CCR1_LENGHT];
+  sprintf(str_revsCounter,"%d",revsCounter);
+  UART_Message(&str_revsCounter);
+}
+
+void getRevTime()
+{
+  const uint8_t str[] = "\nTimes to calculate Rev: ";
+  UART_Message(&str);
+
+  for(int i=0; i<COUNT_FOR_REV; i++)
+  {
+    uint8_t str_ccr1OneRevValues[CCR1_LENGHT];
+    sprintf(str_ccr1OneRevValues,"%d", ccr1_oneRevValues[i]);
+    UART_Message(&str_ccr1OneRevValues);
+    const uint8_t str[] = ", ";
+    UART_Message(&str);
+  }
 }
 
 /* USER CODE END 4 */
@@ -1090,39 +1102,14 @@ void StartDefaultTask(void *argument)
     
     if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_9) == GPIO_PIN_SET)
     {
-        /*uint32_t ccr1_value = __HAL_TIM_GET_COMPARE(&htim14, TIM_CHANNEL_1);
-        const uint8_t data[] = "\nRead Capture value: ";
-        uint8_t size = sizeof(data);
-        UART_Message(&data, size);
-
-        uint32_t v2[ADC_12BIT_LENGHT];
-        sprintf(v2,"%u",ccr1_value);
-        uint32_t size32 = sizeof(v2);
-        UART_Message32(&v2, size32);
-
-        
-        const uint8_t d3[] = "\nccr1 new value: ";
-        uint8_t s3 = sizeof(d3);
-        UART_Message(&d3, s3);*/
-
         read_TIM14CCR1();
-        
-        /*ccr1_oneRevValues[oneRevCounter] = ccr1_value;
-        uint32_t v4[ADC_12BIT_LENGHT];
-        sprintf(v4,"%u",ccr1_oneRevValues[oneRevCounter]);
-        uint32_t s4 = sizeof(v4);
-        UART_Message32(&v4, s4);
-        
 
-        const uint8_t d5[] = "\ncounter for one rev: ";
-        uint8_t s5 = sizeof(d5);
-        UART_Message(&d5, s5);
-
-        oneRevCounter++;
-        uint8_t v6[ADC_12BIT_LENGHT];
-        sprintf(v6,"%u",oneRevCounter);
-        uint8_t s6 = sizeof(v6);
-        UART_Message(&v6, s6);*/
+        if(oneRevCounter == COUNT_FOR_REV)
+        {
+          incrementRev();
+          getRevTime();
+          oneRevCounter = 0;
+        }
     }
 
   }
