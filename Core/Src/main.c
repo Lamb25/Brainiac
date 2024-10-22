@@ -57,8 +57,9 @@
 /* USER CODE BEGIN PM */
 #define SHORT_DELAY        	100
 #define ADC_12BIT_LENGHT   	4
-#define ADC_MAX_VALUE   	4095
-#define VEL_MAX_VALUE   	100
+#define ADC_MAX_VALUE   	  4095
+#define VEL_MAX_VALUE   	  100
+#define ADC_CONVERSIONS     3
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -135,11 +136,15 @@ void setPWM();
 void UART_Message(const uint8_t* data, uint8_t size);
 uint8_t map(uint16_t x, uint8_t in_min, uint16_t in_max, uint8_t out_min, uint8_t out_max);
 uint32_t ADC3_GetValue();
+void ADC3_Select_CH8();
+void ADC3_Select_CH7();
+void ADC3_Select_CH6();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 uint8_t speed;
+uint16_t adc3_values[ADC_CONVERSIONS];
 /* USER CODE END 0 */
 
 /**
@@ -332,13 +337,13 @@ static void MX_ADC3_Init(void)
   hadc3.Instance = ADC3;
   hadc3.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
   hadc3.Init.Resolution = ADC_RESOLUTION_12B;
-  hadc3.Init.ScanConvMode = ADC_SCAN_DISABLE;
-  hadc3.Init.ContinuousConvMode = DISABLE;
+  hadc3.Init.ScanConvMode = ADC_SCAN_ENABLE;
+  hadc3.Init.ContinuousConvMode = ENABLE;
   hadc3.Init.DiscontinuousConvMode = DISABLE;
   hadc3.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
   hadc3.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc3.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-  hadc3.Init.NbrOfConversion = 1;
+  hadc3.Init.NbrOfConversion = 3;
   hadc3.Init.DMAContinuousRequests = DISABLE;
   hadc3.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
   if (HAL_ADC_Init(&hadc3) != HAL_OK)
@@ -351,6 +356,24 @@ static void MX_ADC3_Init(void)
   sConfig.Channel = ADC_CHANNEL_8;
   sConfig.Rank = ADC_REGULAR_RANK_1;
   sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
+  if (HAL_ADC_ConfigChannel(&hadc3, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
+  */
+  sConfig.Channel = ADC_CHANNEL_7;
+  sConfig.Rank = ADC_REGULAR_RANK_2;
+  if (HAL_ADC_ConfigChannel(&hadc3, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
+  */
+  sConfig.Channel = ADC_CHANNEL_6;
+  sConfig.Rank = ADC_REGULAR_RANK_3;
   if (HAL_ADC_ConfigChannel(&hadc3, &sConfig) != HAL_OK)
   {
     Error_Handler();
@@ -890,12 +913,68 @@ void UART_Message(const uint8_t* data, uint8_t size)
   	vTaskDelay(SHORT_DELAY);
 }
 
+void ADC3_Select_CH8()
+{
+  /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
+  */
+  ADC_ChannelConfTypeDef sConfig = {0};
+  sConfig.Channel = ADC_CHANNEL_8;
+  sConfig.Rank = 1;
+  sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
+  if (HAL_ADC_ConfigChannel(&hadc3, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+}
+
+void ADC3_Select_CH7()
+{
+  /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
+  */
+  ADC_ChannelConfTypeDef sConfig = {0};
+  sConfig.Channel = ADC_CHANNEL_7;
+  sConfig.Rank = 1;
+  if (HAL_ADC_ConfigChannel(&hadc3, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+}
+
+void ADC3_Select_CH6()
+{
+  /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
+  */
+  ADC_ChannelConfTypeDef sConfig = {0};
+  sConfig.Channel = ADC_CHANNEL_6;
+  sConfig.Rank = 1;
+  if (HAL_ADC_ConfigChannel(&hadc3, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+}
+
 uint32_t ADC3_GetValue()
 {
-  	HAL_ADC_Start(&hadc3);
-  	HAL_ADC_PollForConversion(&hadc3, SHORT_DELAY);
-  	uint32_t adc_value = HAL_ADC_GetValue(&hadc3);
-  	HAL_ADC_Stop(&hadc3);
+    for(uint8_t i = 0; i < ADC_CONVERSIONS; i++)
+    {
+      if(i == 0)
+      {
+        ADC3_Select_CH8();
+      }
+      else if(i == 1)
+      {
+        ADC3_Select_CH7();
+      }
+      else
+      {
+        ADC3_Select_CH6();
+      }
+      HAL_ADC_Start(&hadc3);
+      HAL_ADC_PollForConversion(&hadc3, SHORT_DELAY);
+      adc_value = HAL_ADC_GetValue(&hadc3);
+      adc3_values[i] = HAL_ADC_GetValue(&hadc3);
+      HAL_ADC_Stop(&hadc3);
+    }
 
     return adc_value;
 }
