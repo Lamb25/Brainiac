@@ -25,7 +25,9 @@ public:
     
 protected:
     ModelListener* modelListener;
-    uint8_t velocimenter_value;
+    uint8_t velocimeter_value;
+    uint8_t tacometer_value;
+    uint32_t odometer_value;
 private:
     const char *prndl_values = "PRNDL";
     const size_t len = strlen(prndl_values);

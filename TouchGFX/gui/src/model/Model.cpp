@@ -6,7 +6,9 @@
 #include "main.h"
 extern "C"
 {
-	extern osMessageQueueId_t adcQueueHandle;
+	extern osMessageQueueId_t adcSpeedQueueHandle;
+	extern osMessageQueueId_t adcRPMQueueHandle;
+	extern osMessageQueueId_t adcOdoQueueHandle;
 }
 #endif
 
@@ -18,10 +20,20 @@ Model::Model() : modelListener(0)
 void Model::tick()
 {
 #ifndef SIMULATOR
-	//Get Data from ADC Queue
-	if (osMessageQueueGet(adcQueueHandle, &velocimenter_value, 0U, 0) == osOK)
+	//Get Speed value from ADC3 CH8 Queue
+	if (osMessageQueueGet(adcSpeedQueueHandle, &velocimeter_value, 0U, 0) == osOK)
 	{
-		modelListener->setSpeedometer(velocimenter_value);  // send data to presenter
+		modelListener->setSpeedometer(velocimeter_value);  // send data to presenter
+	}
+	//Get RPM value from ADC3 CH7 Queue
+	if (osMessageQueueGet(adcRPMQueueHandle, &tacometer_value, 0U, 0) == osOK)
+	{
+		modelListener->setTacometer(tacometer_value);  // send data to presenter
+	}
+	//Get Km value from ADC3 CH6 Queue
+	if (osMessageQueueGet(adcOdoQueueHandle, &odometer_value, 0U, 0) == osOK)
+	{
+		modelListener->setOdometer(odometer_value);  // send data to presenter
 	}
 #endif
 }

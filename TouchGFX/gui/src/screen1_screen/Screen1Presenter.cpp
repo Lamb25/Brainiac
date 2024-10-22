@@ -47,7 +47,17 @@ void Screen1Presenter::dec_Odovalue()
     model->dec_Odovalue();
 }
 
-void Screen1Presenter::setSpeedometer(uint8_t velocimenter_value)
+void Screen1Presenter::setSpeedometer(uint8_t velocimeter_value)
 {
-    view.setSpeedometer(velocimenter_value);
+    view.setSpeedometer(velocimeter_value);
+}
+
+void Screen1Presenter::setTacometer(uint8_t tacometer_value)
+{
+    view.setTacometer(tacometer_value);
+}
+
+void Screen1Presenter::setOdometer(uint32_t odometer_value)
+{
+    view.setOdometer(odometer_value);
 }

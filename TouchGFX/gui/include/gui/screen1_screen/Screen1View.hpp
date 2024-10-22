@@ -15,7 +15,9 @@ public:
     virtual void change_PRNDLvalue();
     virtual void inc_Odometer();
     virtual void dec_Odometer();
-    void setSpeedometer(uint8_t velocimenter_value);
+    void setSpeedometer(uint8_t velocimeter_value);
+    void setTacometer(uint8_t tacometer_value);
+    void setOdometer(uint32_t odometer_value);
 protected:
 };
 

@@ -47,7 +47,20 @@ void Screen1View::dec_Odometer()
     txt_Odo.invalidate();
 }
 
-void Screen1View::setSpeedometer(uint8_t velocimenter_value)
+void Screen1View::setSpeedometer(uint8_t velocimeter_value)
 {
-    gauge_speedo.setValue(velocimenter_value);
+    gauge_speedo.setValue(velocimeter_value);
+}
+
+void Screen1View::setTacometer(uint8_t tacometer_value)
+{
+    gauge_taco.setValue(tacometer_value);
+}
+
+void Screen1View::setOdometer(uint32_t odometer_value)
+{
+    Unicode::snprintf(txt_OdoBuffer, TXT_ODO_SIZE, "%d", odometer_value);
+    txt_Odo.setWildcard(txt_OdoBuffer);
+    txt_Odo.resizeToCurrentText();
+    txt_Odo.invalidate();
 }

@@ -39,7 +39,11 @@ public:
 
     void dec_Odovalue();
 
-    void setSpeedometer(uint8_t velocimenter_value);
+    void setSpeedometer(uint8_t velocimeter_value);
+
+    void setTacometer(uint8_t tacometer_value);
+
+    void setOdometer(uint32_t odometer_value);
 
 private:
     Screen1Presenter();

@@ -59,6 +59,7 @@
 #define ADC_12BIT_LENGHT   	4
 #define ADC_MAX_VALUE   	  4095
 #define VEL_MAX_VALUE   	  100
+#define ODO_MAX_VALUE   	  999999
 #define ADC_CONVERSIONS     3
 /* USER CODE END PM */
 
@@ -102,10 +103,20 @@ const osThreadAttr_t videoTask_attributes = {
   .stack_size = 1000 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
-/* Definitions for adcQueue */
-osMessageQueueId_t adcQueueHandle;
-const osMessageQueueAttr_t adcQueue_attributes = {
-  .name = "adcQueue"
+/* Definitions for adcSpeedQueue */
+osMessageQueueId_t adcSpeedQueueHandle;
+const osMessageQueueAttr_t adcSpeedQueue_attributes = {
+  .name = "adcSpeedQueue"
+};
+/* Definitions for adcRPMQueue */
+osMessageQueueId_t adcRPMQueueHandle;
+const osMessageQueueAttr_t adcRPMQueue_attributes = {
+  .name = "adcRPMQueue"
+};
+/* Definitions for adcOdoQueue */
+osMessageQueueId_t adcOdoQueueHandle;
+const osMessageQueueAttr_t adcOdoQueue_attributes = {
+  .name = "adcOdoQueue"
 };
 /* USER CODE BEGIN PV */
 static FMC_SDRAM_CommandTypeDef Command;
@@ -129,13 +140,21 @@ extern void TouchGFX_Task(void *argument);
 extern void videoTaskFunc(void *argument);
 
 /* USER CODE BEGIN PFP */
-void readSpeed();
+void readADC3();
+void ADC3_Speed();
+void ADC3_RPM();
+void ADC3_Km();
 void setSpeed(uint8_t newSpeed);
 uint8_t getSpeed();
+void setRPM(uint8_t newRPM);
+uint8_t getRPM();
+void setKm(uint32_t newKm);
+uint8_t getKm();
 void setPWM();
 void UART_Message(const uint8_t* data, uint8_t size);
 uint8_t map(uint16_t x, uint8_t in_min, uint16_t in_max, uint8_t out_min, uint8_t out_max);
-uint32_t ADC3_GetValue();
+uint32_t map32(uint16_t x, uint8_t in_min, uint16_t in_max, uint8_t out_min, uint32_t out_max);
+void ADC3_GetValue();
 void ADC3_Select_CH8();
 void ADC3_Select_CH7();
 void ADC3_Select_CH6();
@@ -144,6 +163,8 @@ void ADC3_Select_CH6();
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 uint8_t speed;
+uint8_t rpm;
+uint32_t km;
 uint16_t adc3_values[ADC_CONVERSIONS];
 /* USER CODE END 0 */
 
@@ -220,8 +241,14 @@ int main(void)
   /* USER CODE END RTOS_TIMERS */
 
   /* Create the queue(s) */
-  /* creation of adcQueue */
-  adcQueueHandle = osMessageQueueNew (1, sizeof(uint16_t), &adcQueue_attributes);
+  /* creation of adcSpeedQueue */
+  adcSpeedQueueHandle = osMessageQueueNew (1, sizeof(uint16_t), &adcSpeedQueue_attributes);
+
+  /* creation of adcRPMQueue */
+  adcRPMQueueHandle = osMessageQueueNew (1, sizeof(uint16_t), &adcRPMQueue_attributes);
+
+  /* creation of adcOdoQueue */
+  adcOdoQueueHandle = osMessageQueueNew (1, sizeof(uint32_t), &adcOdoQueue_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -873,22 +900,69 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void readSpeed()
+void readADC3()
 {
-	const uint8_t data[] = "\nSpeedometer value: ";
-	uint8_t size = sizeof(data);
-	UART_Message(&data, size);
+	ADC3_GetValue();
+  
+	/*Speedometer from ADC3 CH8*/
+	ADC3_Speed();
 
-	uint16_t adc_value = ADC3_GetValue();
-	uint8_t converted_val = map(adc_value, 0, ADC_MAX_VALUE, 0, VEL_MAX_VALUE);
+	/*Tacometer from ADC3 CH7*/
+	ADC3_RPM();
+
+	/*Odometer from ADC3 CH7*/
+	ADC3_Km();
+}
+
+void ADC3_Speed()
+{
+  const uint8_t s_speed[] = "\nSpeedometer value: ";
+	uint8_t size_speed = sizeof(s_speed);
+	UART_Message(&s_speed, size_speed);
+	
+	uint8_t speed_val = map(adc3_values[0], 0, ADC_MAX_VALUE, 0, VEL_MAX_VALUE);
 	uint8_t speed[ADC_12BIT_LENGHT];
-	sprintf(speed,"%u",converted_val);
-	size = sizeof(speed);
-	UART_Message(&speed, size);
+	sprintf(speed,"%u",speed_val);
+	size_speed = sizeof(speed);
+	UART_Message(&speed, size_speed);
 
-	setSpeed(converted_val);
+	setSpeed(speed_val);
 
-	osMessageQueuePut(adcQueueHandle, &converted_val, 0, 0);
+	osMessageQueuePut(adcSpeedQueueHandle, &speed_val, 0, 0);
+}
+
+void ADC3_RPM()
+{
+  const uint8_t s_tacometer[] = "\nTacometer value: ";
+	uint8_t size_tacometer = sizeof(s_tacometer);
+	UART_Message(&s_tacometer, size_tacometer);
+	
+	uint8_t tacometer_val = map(adc3_values[1], 0, ADC_MAX_VALUE, 0, VEL_MAX_VALUE);
+	uint8_t tacometer[ADC_12BIT_LENGHT];
+	sprintf(tacometer,"%u",tacometer_val);
+	size_tacometer = sizeof(tacometer);
+	UART_Message(&tacometer, size_tacometer);
+
+	setRPM(tacometer_val);
+
+	osMessageQueuePut(adcRPMQueueHandle, &tacometer_val, 0, 0);
+}
+
+void ADC3_Km()
+{
+	const uint8_t s_odometer[] = "\nOdometer value: ";
+	uint8_t size_odometer = sizeof(s_odometer);
+	UART_Message(&s_odometer, size_odometer);
+	
+	uint32_t odometer_val = map32(adc3_values[2], 0, ADC_MAX_VALUE, 0, ODO_MAX_VALUE);
+	uint32_t odometer[9];
+	sprintf(odometer,"%u",odometer_val);
+	size_odometer = sizeof(odometer);
+	UART_Message(&odometer, size_odometer);
+
+	setKm(odometer_val);
+
+	osMessageQueuePut(adcOdoQueueHandle, &odometer_val, 0, 0);
 }
 
 void setSpeed(uint8_t newSpeed)
@@ -901,7 +975,32 @@ uint8_t getSpeed()
   return speed;
 }
 
+void setRPM(uint8_t newRPM)
+{
+  rpm = newRPM;
+}
+
+uint8_t getRPM()
+{
+  return rpm;
+}
+
+void setKm(uint32_t newKm)
+{
+  km = newKm;
+}
+
+uint8_t getKm()
+{
+  return km;
+}
+
 uint8_t map(uint16_t x, uint8_t in_min, uint16_t in_max, uint8_t out_min, uint8_t out_max) 
+{
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+uint32_t map32(uint16_t x, uint8_t in_min, uint16_t in_max, uint8_t out_min, uint32_t out_max) 
 {
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
@@ -953,7 +1052,7 @@ void ADC3_Select_CH6()
   }
 }
 
-uint32_t ADC3_GetValue()
+void ADC3_GetValue()
 {
     for(uint8_t i = 0; i < ADC_CONVERSIONS; i++)
     {
@@ -971,12 +1070,10 @@ uint32_t ADC3_GetValue()
       }
       HAL_ADC_Start(&hadc3);
       HAL_ADC_PollForConversion(&hadc3, SHORT_DELAY);
-      adc_value = HAL_ADC_GetValue(&hadc3);
+      //adc_value = HAL_ADC_GetValue(&hadc3);
       adc3_values[i] = HAL_ADC_GetValue(&hadc3);
       HAL_ADC_Stop(&hadc3);
     }
-
-    return adc_value;
 }
 
 void setPWM()
@@ -1000,7 +1097,7 @@ void StartDefaultTask(void *argument)
 
   for(;;)
   {
-    readSpeed();
+    readADC3();
     setPWM();
   }
   /* USER CODE END 5 */
